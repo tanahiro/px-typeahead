@@ -1,0 +1,101 @@
+<!doctype html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      px-typeahead Demo</title>
+    <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+    <script src="../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
+    <link rel="import" href="px-typeahead.html" />
+    <link rel="import" href="../px-theme/px-theme.html" />
+  </head>
+
+  <body>
+    <template is="dom-bind" id="app">
+
+    <px-typeahead max-suggestions="10" label="Local candidates example with maxSuggestions" local-candidates="{{states}}"  placeholder="US states">
+    </px-typeahead>
+    
+    <div><h1>TESTING</h1></div>
+    
+    <px-typeahead max-suggestions="4" label="Prefetched candidates example with maxSuggestions" prefetch-url="https://github.build.ge.com/pages/aviation-oo/px-typeahead-input/components/px-typeahead-input/countries.json" placeholder="Countries">
+    </px-typeahead>
+
+    <px-typeahead prefetch-url="https://github.build.ge.com/pages/aviation-oo/px-typeahead-input/components/px-typeahead-input/statesInObjects.json" max-suggestions="5" label="States in JSON object" display-prop="name" searchable-props="{{searchable}}" is-candidates-json="true" placeholder="Search for US states by state name or state nickname">
+    </px-typeahead>
+    
+
+    <script>
+        window.addEventListener('WebComponentsReady', function() {
+        var app = document.querySelector('#app');
+        app.states = [
+           "Alabama",
+           "Alaska",
+           "American Samoa",
+           "Arizona",
+           "Arkansas",
+           "California",
+           "Colorado",
+           "Connecticut",
+           "Delaware",
+           "District Of Columbia",
+           "Federated States Of Micronesia",
+           "Florida",
+           "Georgia",
+           "Guam",
+           "Hawaii",
+           "Idaho",
+           "Illinois",
+           "Indiana",
+           "Iowa",
+           "Kansas",
+           "Kentucky",
+           "Louisiana",
+           "Maine",
+           "Marshall Islands",
+           "Maryland",
+           "Massachusetts",
+           "Michigan",
+           "Minnesota",
+           "Mississippi",
+           "Missouri",
+           "Montana",
+           "Nebraska",
+           "Nevada",
+           "New Hampshire",
+           "New Jersey",
+           "New Mexico",
+           "New York",
+           "North Carolina",
+           "North Dakota",
+           "Northern Mariana Islands",
+           "Ohio",
+           "Oklahoma",
+           "Oregon",
+           "Palau",
+           "Pennsylvania",
+           "Puerto Rico",
+           "Rhode Island",
+           "South Carolina",
+           "South Dakota",
+           "Tennessee",
+           "Texas",
+           "Utah",
+           "Vermont",
+           "Virgin Islands",
+           "Virginia",
+           "Washington",
+           "West Virginia",
+           "Wisconsin",
+           "Wyoming"
+          ]
+      });
+      
+      </script>
+    </template>
+  </body>
+</html>

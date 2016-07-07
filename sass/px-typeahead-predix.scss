@@ -1,0 +1,70 @@
+/*
+ * Copyright (c) 2014 GE Global Research. All rights reserved.
+ *
+ * The copyright to the computer software herein is the property of
+ * GE Global Research. The software may be used and/or copied only
+ * with the written permission of GE Global Research or in accordance
+ * with the terms and conditions stipulated in the agreement/contract
+ * under which the software has been supplied.
+ */
+
+//
+// Sass for the Predix notion of the px-typeahead component
+//
+// @author
+//
+
+/*
+THIS FILE SHOULD CONTAIN ONLY RULES SPECIFIC TO PREDIX BRANDING
+common/abstract rules go in px-typeahead-sketch.scss, not in this file.
+*/
+
+// Settings
+@import "px-colors-design/_settings.colors.scss";
+@import "font-awesome/scss/font-awesome.scss";
+@import 'px-typeahead-sketch.scss';
+
+.search {
+  position: relative;
+  background-color:   $gray1;
+  border: 1px solid $gray5;
+  border-radius: 3px;
+  width : 250px;
+  height: 25px;
+  color: $black;
+  max-height: calculateRem(31px);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: text-top;
+}
+
+.fa-search {
+    position: absolute;
+    left: 235px;
+    padding: 1px;
+    z-index: 1;
+}
+
+.container {
+	ul {
+		list-style-type: none;
+		padding-left: 0;
+		display: inline-block;
+		margin : 0;
+		border: 1px solid $gray5;
+		max-height: calculateRem(222px);
+        overflow-y: auto;
+        z-index: 1;
+		li {
+			text-overflow: ellipsis;
+			cursor: pointer;
+			white-space: nowrap;
+			padding: $inuit-base-spacing-unit--tiny;
+ 			&.item-selected {
+ 				background-color: $select-blue-default;
+    			color: $white;
+ 			}
+		}
+	}
+}
