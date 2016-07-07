@@ -29,7 +29,6 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
   background-color:   $gray1;
   border: 1px solid $gray5;
   border-radius: 3px;
-  width : 250px;
   height: 25px;
   color: $black;
   max-height: calculateRem(31px);
@@ -38,13 +37,20 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
   overflow: hidden;
   vertical-align: text-top;
 }
+/*.search:before {
+  position: absolute;
+  font-family: 'FontAwesome';
+  top: 0;
+  left: 10px;
+  content: "\f005";
+
+}*/
 
 .fa-search {
     position: absolute;
-    left: 235px;
     padding: 3px;
     z-index: 1;
-
+    left: 32%;
 }
 
 .container {
