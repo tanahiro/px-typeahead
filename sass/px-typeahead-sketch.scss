@@ -33,13 +33,12 @@ Predix branding rules go in px-typeahead-predix.scss, not in this file.
 @import "px-forms-design/_base.forms.scss";
 
 
-
 :host {
   cursor: pointer;
   overflow: hidden;
   flex: 1 1 auto;
+  max-height: calculateRem(31px);
 }
-
 
 
 

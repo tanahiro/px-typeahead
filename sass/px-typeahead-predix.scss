@@ -42,8 +42,9 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 .fa-search {
     position: absolute;
     left: 235px;
-    padding: 1px;
+    padding: 3px;
     z-index: 1;
+
 }
 
 .container {
@@ -52,19 +53,28 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 		padding-left: 0;
 		display: inline-block;
 		margin : 0;
-		border: 1px solid $gray5;
 		max-height: calculateRem(222px);
         overflow-y: auto;
         z-index: 1;
+        background-color: $gray1;
+  		border-radius: 3px;
+  		color: $black;
+  		border: 1px solid $gray5;
 		li {
 			text-overflow: ellipsis;
 			cursor: pointer;
-			white-space: nowrap;
+			/* white-space: nowrap; */
 			padding: $inuit-base-spacing-unit--tiny;
  			&.item-selected {
  				background-color: $select-blue-default;
     			color: $white;
  			}
-		}
+ 			&:first-child {
+    			border-radius: 4px 4px 0 0;
+  			}
+  			:last-child {
+    			border-radius: 0 0 4px 4px;
+  			}
+  		}
 	}
 }
