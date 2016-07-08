@@ -37,13 +37,18 @@ Element providing solution to no problem in particular. As a simple example, inc
     ></iron-ajax>
   </template>
 
-   
-  <div class="layout">
-    <input id="search" class="search layout__item u-1/3"
-    on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}">
-    <i class="fa fa-search"></i>
-      <!--<iron-icon icon="icons:search"></iron-icon> 
-    </input>-->
+    
+  <div class="flex" style="justify-content:flex-end;">
+    <div style="flex:0 0 95%;"><input id="search" class="search u-pl-" style="border:0;width:100%;"
+      on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}"></input>
+    </div>
+    <div style="flex:0 0 3%;margin-right:10px;"><i class="fa fa-search u-pr-"></i></div>
+      
+  </div>
+    
+    
+      <!--<iron-icon icon="icons:search"></iron-icon> -->
+    
   </div>
   
   <template is="dom-if" if="{{_suggestions.length}}">

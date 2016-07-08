@@ -47,10 +47,9 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 }*/
 
 .fa-search {
-    position: absolute;
-    padding: 3px;
+    position: relative;
     z-index: 1;
-    left: 32%;
+    
 }
 
 .container {
@@ -61,11 +60,12 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 		margin : 0;
 		max-height: calculateRem(222px);
         overflow-y: auto;
-        z-index: 1;
+        z-index: 2;
         background-color: $gray1;
   		border-radius: 3px;
   		color: $black;
   		border: 1px solid $gray5;
+  		position: absolute;
 		li {
 			text-overflow: ellipsis;
 			cursor: pointer;

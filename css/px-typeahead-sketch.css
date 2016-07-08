@@ -728,9 +728,72 @@ textarea {
 :host {
   cursor: pointer;
   overflow: hidden;
-  -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
   max-height: 2.0666666667rem; }
+
+/**
+ * Margin and padding helper classes. Use these to tweak layout on a micro
+ * level.
+ *
+ * `.u-(m|p)(t|r|b|l|h|v)(-|+|0) {}` = utility - margin/padding top/right/bottom/left/horizontal/vertical less/more/none
+ */
+/**
+     * Add small paddings.
+     */
+.u-p- {
+  padding: 0.6666666667rem !important; }
+
+.u-pt- {
+  padding-top: 0.6666666667rem !important; }
+
+.u-pr- {
+  padding-right: 0.6666666667rem !important; }
+
+.u-pb- {
+  padding-bottom: 0.6666666667rem !important; }
+
+.u-pl- {
+  padding-left: 0.6666666667rem !important; }
+
+.u-ph- {
+  padding-right: 0.6666666667rem !important;
+  padding-left: 0.6666666667rem !important; }
+
+.u-pv- {
+  padding-top: 0.6666666667rem !important;
+  padding-bottom: 0.6666666667rem !important; }
+
+/**
+     * Add large paddings.
+     */
+.u-p\00002b
+{
+  padding: 1.3333333333rem !important; }
+
+.u-pt\00002b
+{
+  padding-top: 1.3333333333rem !important; }
+
+.u-pr\00002b
+{
+  padding-right: 1.3333333333rem !important; }
+
+.u-pb\00002b
+{
+  padding-bottom: 1.3333333333rem !important; }
+
+.u-pl\00002b
+{
+  padding-left: 1.3333333333rem !important; }
+
+.u-ph\00002b
+{
+  padding-right: 1.3333333333rem !important;
+  padding-left: 1.3333333333rem !important; }
+
+.u-pv\00002b
+{
+  padding-top: 1.3333333333rem !important;
+  padding-bottom: 1.3333333333rem !important; }
 
 /*------------------------------------*    #CLEARFIX
 \*------------------------------------*/
@@ -749,12 +812,6 @@ textarea {
  * level based on viewport widths.
  *
  * `.u-[breakpoint]-(m|p)(t|r|b|l|h|v)(-|+|0) {}` = utility - breakpoint - margin/padding top/right/bottom/left/horizontal/vertical less/more/none
- */
-/**
- * Margin and padding helper classes. Use these to tweak layout on a micro
- * level.
- *
- * `.u-(m|p)(t|r|b|l|h|v)(-|+|0) {}` = utility - margin/padding top/right/bottom/left/horizontal/vertical less/more/none
  */
 /**
  * A series of width helper classes that you can use to size things like grid
