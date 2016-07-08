@@ -23,55 +23,7 @@ Element providing solution to no problem in particular. As a simple example, inc
 <dom-module id="px-typeahead">
   <link rel="import" type="css" href="css/noprefix/px-typeahead.css"/>
   <link rel="import" type="css" href="css/noprefix/px-typeahead-sketch.css"/>
-  <!--<style>
-      /*:host {
-        display: block;
-        box-sizing: border-box;
-      }*/
-      .fa-search {
-        position: absolute;
-        left: 235px;
-        padding: 1px;
-      }
-      ul{
-      list-style-type: none;
-      padding-left: 0;
-      }
-      li{
-        cursor: pointer;
-      }
-      /*input{
-        position: relative;
-        border : 1px solid #eee;
-        height: 25px;
-        overflow-y : auto;
-        text-overflow:ellipsis;
-        width: 250px;
-      }*/
-      .iron-selected{
-        background: #eee;
-      }
-      .item-selected{
-        background: #5882FA;
-      }
-      input:focus { 
-      border : 1px solid blue;
-      }
-      .container {
-        display: inline-block;
-        position: relative;
-        padding-left: 10px;
-        padding-right: 10px;
-        overflow:auto;
-        max-height:200px;
-        background-color: #EFF3F2;
-        z-index: 1000;
-      }
-      .container:empty {
-        display: none;
-      }
-    </style> -->
-
+  
   <template>
     <template is="dom-if" if="{{label}}">
      <h3>{{label}} {{maxSuggestions}}</h3>
@@ -173,40 +125,7 @@ Element providing solution to no problem in particular. As a simple example, inc
        * Remote url to perform a search using the value in the input. The input value will be passed in as url parameter. The placeholder should be %QUERY.
        */
       remoteUrl:String,
-       /**
-       * Number of milliseconds to wait after user types a character.
-       * This is helpful to reduce number of calls to remoteUrl based on performance consideration if it's set up properly based on how fast user usually types.
-       * Default is undefined which means the search request to remoteUrl will be fired immediately after user types a character.
-       * This propery only makes sense if remoteUrl is set up.
-       */
-      remoteUrlWaitMs:{
-        type:Number,
-        value:undefined
-      },
-      /**
-       * A boolean property to indicate if elements in the candidates list are json dictionary. 
-       * When this property set up to be true, the candidates will be treated as list of json objects. Otherwise will be treated as list of strings.
-       */
-      isCandidatesJson:{
-        type:Boolean,
-        value:false
-      },
-      /**
-       * An array to tell what property in the json object of candidate is searchable. 
-       * This property only makes sense when property isCandidatesJson set to be true.
-       */
-      searchableProps:{
-        type:Array,
-        value:[]
-      },
-      /**
-        * The property in json object that should be chosen for the paper-input value when an element is selected from the suggestions.
-        * This property only makes sense when property isCandidatesJson set to be true.
-        */
-      displayProp:{
-        type:String,
-        value:"undefined"
-      },
+      
       /**
        * A boolean property to indicate if there is a searching going on to remoteUrl.
        * This propery only makes sense if remoteUrl is set up.
@@ -229,13 +148,6 @@ Element providing solution to no problem in particular. As a simple example, inc
       inputObject:{
         type:Object,
         notify:true
-      },
-       /**
-       * Input object.
-       */
-      className:{
-        type:String,
-        value:""
       },
       
     },
