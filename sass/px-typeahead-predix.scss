@@ -36,6 +36,7 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: text-top;
+  outline: none;
 }
 /*.search:before {
   position: absolute;
@@ -69,6 +70,7 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 		li {
 			text-overflow: ellipsis;
 			cursor: pointer;
+			outline: none;
 			/* white-space: nowrap; */
 			padding: $inuit-base-spacing-unit--tiny;
  			&.item-selected {

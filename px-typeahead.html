@@ -25,46 +25,36 @@ Element providing solution to no problem in particular. As a simple example, inc
   <link rel="import" type="css" href="css/noprefix/px-typeahead-sketch.css"/>
   
   <template>
-    <template is="dom-if" if="{{label}}">
-     <h3>{{label}} {{maxSuggestions}}</h3>
-    </template>
+    
     <template is="dom-if" if="{{prefetchUrl}}">
-    <iron-ajax
-    auto
-    url="{{prefetchUrl}}"
-    handle-as="json"
-    last-response="{{_prefetchedCandidates}}"
-    ></iron-ajax>
-  </template>
+      <iron-ajax
+      auto
+      url="{{prefetchUrl}}"
+      handle-as="json"
+      last-response="{{_prefetchedCandidates}}">
+      </iron-ajax>
+    </template>
 
     
-  <div class="flex" style="justify-content:flex-end;">
-    <div style="flex:0 0 95%;"><input id="search" class="search u-pl-" style="border:0;width:100%;"
+    <div class="flex u-1/3" style="background-color:#f7f7fc;justify-content:flex-end;">
+      <div style="flex:0 0 95%;"><input id="search" class="search u-pl-" style="border:0;width:100%;"
       on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}"></input>
+      </div>
+      <div style="flex:0 0 3%;margin-right:10px;"><i class="fa fa-search u-pr-"></i></div>
     </div>
-    <div style="flex:0 0 3%;margin-right:10px;"><i class="fa fa-search u-pr-"></i></div>
-      
-  </div>
-    
-    
-      <!--<iron-icon icon="icons:search"></iron-icon> -->
-    
-  </div>
-  
-  <template is="dom-if" if="{{_suggestions.length}}">
-    <div class="container">
-      
-      <ul on-iron-select="_itemSelect" class="layout__item u-1/3">
-        <template is="dom-repeat" items="{{_suggestions}}">
+    </div>
+    <template is="dom-if" if="{{_suggestions.length}}">
+      <div class="container">
+        <ul on-iron-select="_itemSelect" class="layout__item u-1/3">
+          <template is="dom-repeat" items="{{_suggestions}}">
              <li tabindex="-1" on-iron-select="_selection" on-tap="_select" on-mouseover="_onhover" on-keyup="_keyup">
              {{item}}
             </li>
           </template> 
-        </template>
-      </ul>
-    </div>
+        </ul>
+      </div>
+    </template>
   </template>
-</template>
 </dom-module>
 
 <script>

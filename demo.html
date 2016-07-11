@@ -16,17 +16,19 @@
 
   <body>
     <template is="dom-bind" id="app">
-
-    <px-typeahead max-suggestions="10" label="Local candidates example with maxSuggestions" local-candidates="{{states}}"  placeholder="US states">
+    
+    <h3>Local candidates example with maxSuggestions 10</h3>
+    <px-typeahead max-suggestions="10" local-candidates="{{states}}"  placeholder="US states">
     </px-typeahead>
     
     <div><h1>TESTING</h1></div>
     
-    <px-typeahead max-suggestions="4" label="Prefetched candidates example with maxSuggestions" prefetch-url="https://github.build.ge.com/pages/aviation-oo/px-typeahead-input/components/px-typeahead-input/countries.json" placeholder="Countries">
+    <h3>Prefetched candidates example with maxSuggestions 4</h3>
+    <px-typeahead max-suggestions="4" prefetch-url="https://github.build.ge.com/pages/aviation-oo/px-typeahead-input/components/px-typeahead-input/countries.json" placeholder="Countries">
     </px-typeahead>
 
-    <px-typeahead prefetch-url="https://github.build.ge.com/pages/aviation-oo/px-typeahead-input/components/px-typeahead-input/statesInObjects.json" max-suggestions="5" label="States in JSON object" display-prop="name" searchable-props="{{searchable}}" is-candidates-json="true" placeholder="Search for US states by state name or state nickname">
-    </px-typeahead>
+    <!--<px-typeahead prefetch-url="https://github.build.ge.com/pages/aviation-oo/px-typeahead-input/components/px-typeahead-input/statesInObjects.json" max-suggestions="5" label="States in JSON object" display-prop="name" searchable-props="{{searchable}}" is-candidates-json="true" placeholder="Search for US states by state name or state nickname">
+    </px-typeahead> -->
     
 
     <script>

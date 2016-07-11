@@ -3235,7 +3235,8 @@ textarea {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  vertical-align: text-top; }
+  vertical-align: text-top;
+  outline: none; }
 
 /*.search:before {
   position: absolute;
@@ -3265,6 +3266,7 @@ textarea {
   .container ul li {
     text-overflow: ellipsis;
     cursor: pointer;
+    outline: none;
     /* white-space: nowrap; */
     padding: 0.3333333333rem; }
     .container ul li.item-selected {
