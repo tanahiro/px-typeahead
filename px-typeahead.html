@@ -36,11 +36,11 @@ Element providing solution to no problem in particular. As a simple example, inc
     </template>
 
     
-    <div class="flex u-1/3" style="background-color:#f7f7fc;justify-content:flex-end;">
-      <div style="flex:0 0 95%;"><input id="search" class="search u-pl-" style="border:0;width:100%;"
+    <div class="flex u-1/3 extdiv">
+      <div style="flex:0 0 95%;"><input id="search" class="search u-pl-"
       on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}"></input>
       </div>
-      <div style="flex:0 0 3%;margin-right:10px;"><i class="fa fa-search u-pr-"></i></div>
+      <div class="fa-stack" style="flex:0 0 4%;"><i class="fa fa-search u-pl-"></i></div>
     </div>
     </div>
     <template is="dom-if" if="{{_suggestions.length}}">

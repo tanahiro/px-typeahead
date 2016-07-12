@@ -24,19 +24,25 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 @import "font-awesome/scss/font-awesome.scss";
 @import 'px-typeahead-sketch.scss';
 
+.extdiv {
+	background-color: $gray1;
+	justify-content:flex-end;
+}
 .search {
   position: relative;
   background-color:   $gray1;
-  border: 1px solid $gray5;
+  border:0;
+  width : 100%;
   border-radius: 3px;
-  height: 25px;
+  height: 2rem;
   color: $black;
-  max-height: calculateRem(31px);
+  max-height: calculateRem(222px);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: text-top;
   outline: none;
+  font-family: "GE Inspira Sans", sans-serif;
 }
 /*.search:before {
   position: absolute;
