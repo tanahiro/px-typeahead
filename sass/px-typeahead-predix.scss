@@ -25,8 +25,14 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 @import 'px-typeahead-sketch.scss';
 
 .extdiv {
-	background-color: $gray1;
-	justify-content:flex-end;
+	background-color:	$gray1;
+	justify-content: flex-end;
+	align-items: center;
+  	&:hover {
+	  	outline-color: $select-blue-default; 
+	    
+	    outline-style: auto;
+  	}
 }
 .search {
   position: relative;
@@ -41,8 +47,9 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: text-top;
-  outline: none;
   font-family: "GE Inspira Sans", sans-serif;
+  font-size: medium;
+  outline: none;
 }
 /*.search:before {
   position: absolute;

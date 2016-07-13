@@ -2736,11 +2736,24 @@ textarea {
   line-height: inherit;
   color: #7c7c84; }
 
+.input--tiny {
+  max-width: 7.0666666667rem; }
+
+.input--small {
+  max-width: 14.1333333333rem; }
+
+.input--regular {
+  max-width: 21.2rem; }
+
+.input--large {
+  max-width: 28.2666666667rem; }
+
 :host {
   cursor: pointer;
   overflow: hidden;
   max-height: 2.0666666667rem;
-  font-family: "GE Inspira Sans", sans-serif; }
+  font-family: "GE Inspira Sans", sans-serif;
+  font-size: medium; }
 
 /**
  * Margin and padding helper classes. Use these to tweak layout on a micro
@@ -3450,7 +3463,12 @@ textarea {
 .extdiv {
   background-color: #f7f7fc;
   -ms-flex-pack: end;
-      justify-content: flex-end; }
+      justify-content: flex-end;
+  -ms-flex-align: center;
+      align-items: center; }
+  .extdiv:hover {
+    outline-color: #0a9ec1;
+    outline-style: auto; }
 
 .search {
   position: relative;
@@ -3465,8 +3483,9 @@ textarea {
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: text-top;
-  outline: none;
-  font-family: "GE Inspira Sans", sans-serif; }
+  font-family: "GE Inspira Sans", sans-serif;
+  font-size: medium;
+  outline: none; }
 
 /*.search:before {
   position: absolute;

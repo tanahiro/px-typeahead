@@ -30,6 +30,10 @@ Predix branding rules go in px-typeahead-predix.scss, not in this file.
 @import "px-flexbox-design/_base.flexbox.scss";
 @import "px-viewport-design/_base.viewport.scss";
 
+$inuit-enable-input--tiny : true;
+$inuit-enable-input--small : true;
+$inuit-enable-input--regular : true;
+$inuit-enable-input--large : true;
 @import "px-forms-design/_base.forms.scss";
 
 
@@ -38,6 +42,7 @@ Predix branding rules go in px-typeahead-predix.scss, not in this file.
   overflow: hidden;
   max-height: calculateRem(31px);
   font-family: "GE Inspira Sans", sans-serif;
+  font-size : medium;
 }
 
 

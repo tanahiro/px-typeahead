@@ -725,11 +725,24 @@ textarea {
   line-height: inherit;
   color: #7c7c84; }
 
+.input--tiny {
+  max-width: 7.0666666667rem; }
+
+.input--small {
+  max-width: 14.1333333333rem; }
+
+.input--regular {
+  max-width: 21.2rem; }
+
+.input--large {
+  max-width: 28.2666666667rem; }
+
 :host {
   cursor: pointer;
   overflow: hidden;
   max-height: 2.0666666667rem;
-  font-family: "GE Inspira Sans", sans-serif; }
+  font-family: "GE Inspira Sans", sans-serif;
+  font-size: medium; }
 
 /**
  * Margin and padding helper classes. Use these to tweak layout on a micro
