@@ -13,7 +13,9 @@ Element providing solution to no problem in particular. As a simple example, inc
 
 ##### Usage
 
-    <px-typeahead counter-value="1">Hi</px-typeahead>
+    <px-typeahead max-suggestions="10" local-candidates="{{your-array-of-input-strings}}" placeholder="your-placeholder">
+    </px-typeahead>
+
 
 @element px-typeahead
 @blurb Element providing solution to no problem in particular.
@@ -36,9 +38,9 @@ Element providing solution to no problem in particular. As a simple example, inc
     </template>
 
     
-    <div class="flex extdiv u-pr-" tabindex="0">
+    <div class="flex parentdiv u-pr-" tabindex="0">
       <div style="flex:0 0 95%;"><input id="search" class="search u-pl-"
-      on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}"></input>
+      on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}" on-focus="_onfocus" on-blur="_onblur"></input>
       </div>
       <div class="fa-stack" style="flex:0 0 5%;"><i class="fa fa-search"></i></div>
     </div>
@@ -197,7 +199,21 @@ Element providing solution to no problem in particular. As a simple example, inc
       }
     },
     /**
-     * Callback on mouseover event on paper-item
+     * adding the outline on focus of input
+     *
+     */
+    _onfocus: function(e) {
+      e.currentTarget.parentElement.parentElement.classList.add('focus');
+    },
+    /**
+     * removing the outline on blur out of input
+     *
+     */
+    _onblur: function(e) {
+      e.currentTarget.parentElement.parentElement.classList.remove('focus');
+    },
+    /**
+     * Callback on mouseover event on list-item
      *
      */
     _selection:function(e){
@@ -226,7 +242,7 @@ Element providing solution to no problem in particular. As a simple example, inc
       e.currentTarget.classList.add('item-selected');
     },
     /**
-     * Callback on click event on paper-item
+     * Callback on click event on list item
      *
      */
     _select: function(e) {
@@ -242,7 +258,6 @@ Element providing solution to no problem in particular. As a simple example, inc
         this.inputValue = this._suggestions[index];
         this._suggestions = [];
         this.fire('pt-item-confirmed',e.target);
-        Polymer.dom(this.root).querySelector('input').focus();
         e.stopPropagation();
       }
       else{

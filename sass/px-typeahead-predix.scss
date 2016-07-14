@@ -24,22 +24,23 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 @import "font-awesome/scss/font-awesome.scss";
 @import 'px-typeahead-sketch.scss';
 
-.extdiv {
-	background-color:	$gray1;
+.parentdiv {
+	background-color:	$gray2;
 	justify-content: flex-end;
 	align-items: center;
-  	&:hover {
-	  	outline-color: $select-blue-default; 
-	    
-	    outline-style: auto;
-  	}
+	outline: 1px solid $gray3;
+  &.focus {
+  outline: 3px solid $primary-blue; 
+  outline-style: auto;
+  }
 }
+
+
 .search {
   position: relative;
-  background-color:   $gray1;
+  background-color:   $gray2;
   border:0;
   width : 100%;
-  border-radius: 3px;
   height: 2rem;
   color: $black;
   max-height: calculateRem(222px);
@@ -50,15 +51,8 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
   font-family: "GE Inspira Sans", sans-serif;
   font-size: medium;
   outline: none;
-}
-/*.search:before {
-  position: absolute;
-  font-family: 'FontAwesome';
-  top: 0;
-  left: 10px;
-  content: "\f005";
 
-}*/
+}
 
 .fa-search {
     position: relative;
@@ -73,13 +67,13 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
 		display: inline-block;
 		margin : 0;
 		max-height: calculateRem(222px);
-        overflow-y: auto;
-        z-index: 2;
-        background-color: $gray1;
-  		border-radius: 3px;
-  		color: $black;
-  		border: 1px solid $gray5;
-  		position: absolute;
+    overflow-y: auto;
+    z-index: 2;
+    background-color: $gray1;
+  	border-radius: 3px;
+  	color: $black;
+  	border: 1px solid $gray5;
+  	position: absolute;
 		li {
 			text-overflow: ellipsis;
 			cursor: pointer;
