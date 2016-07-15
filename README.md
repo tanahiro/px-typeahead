@@ -1,4 +1,4 @@
-#Px-Typeahead [Demo](https://github.build.ge.com/pages/aviation-oo/px-typeahead)
+#Px-Typeahead
 
 A typeahead functionality using polymer, vanilla javascript , px-inuit-styling , e2e tests written using web-component-tester, mocha and chai 
 
