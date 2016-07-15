@@ -1,10 +1,12 @@
 #Px-Typeahead
 
-[Demo](https://github.build.ge.com/pages/aviation-oo/px-typeahead)
+A typeahead functionality using polymer, vanilla javascript , px-inuit-styling , e2e tests written using web-component-tester, mocha and chai 
 
 ## Overview
 
-px-typeahead is a Predix UI component
+px-typeahead is a Predix UI component 
+
+Check it out at - [Demo](https://github.build.ge.com/pages/aviation-oo/px-typeahead)
 
 ## Usage
 
