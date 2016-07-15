@@ -253,7 +253,8 @@ Element providing solution to no problem in particular. As a simple example, inc
         var selectedItem = e.currentTarget;
         selectedItem.classList.add('item-selected');
         //index = Number(suggestionsMenu.indexOf(selectedItem));
-        var index = suggestionsMenu.innerText.split('\n').indexOf(selectedItem.innerText);
+        var text = e.currentTarget.textContent.trim();
+        var index = this._suggestions.indexOf(text);
 
         this.inputValue = this._suggestions[index];
         this._suggestions = [];
@@ -289,7 +290,7 @@ Element providing solution to no problem in particular. As a simple example, inc
             selectedItem.classList.add('item-selected');
           }
         }
-        this.inputValue = selectedItem.innerText;
+        this.inputValue = selectedItem.textContent.trim();
         }
       else if (e.which == 38){
         //up
@@ -309,8 +310,7 @@ Element providing solution to no problem in particular. As a simple example, inc
                 selectedItem.classList.add('item-selected');
               }
             }
-    
-            this.inputValue = selectedItem.innerText;
+            this.inputValue = selectedItem.textContent.trim();
           }
       else if (e.which == 13 || e.which == 32){
            //Reset the input value 
@@ -322,7 +322,7 @@ Element providing solution to no problem in particular. As a simple example, inc
             selectedItem.classList.remove('item-selected');
           }
 
-          this.inputValue = selectedItem.innerText;
+          this.inputValue = selectedItem.textContent.trim();
           this._suggestions = [];
           this.fire('pt-item-confirmed',selectedItem);
           Polymer.dom(this.root).querySelector('input').focus();
