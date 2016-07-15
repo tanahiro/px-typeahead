@@ -1,6 +1,6 @@
 #Px-Typeahead
 
-Demo - [https://github.build.ge.com/pages/aviation-oo/px-typeahead]
+[Demo](https://github.build.ge.com/pages/aviation-oo/px-typeahead)
 
 ## Overview
 
