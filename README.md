@@ -1,8 +1,10 @@
 #Px-Typeahead
 
+Demo - [https://github.build.ge.com/pages/aviation-oo/px-typeahead]
+
 ## Overview
 
-Px-Typeahead is a Predix UI component
+px-typeahead is a Predix UI component
 
 ## Usage
 
@@ -19,13 +21,13 @@ Node, npm and bower are necessary to install the component and dependencies. web
 First, install the component via bower on the command line.
 
 ```
-bower install Px-Typeahead --save
+bower install px-typeahead --save
 ```
 
 Second, import the component to your application with the following tag in your head.
 
 ```
-<link rel="import" href="/bower_components/Px-Typeahead/Px-Typeahead.html"/>
+<link rel="import" href="/bower_components/px-typeahead/px-typeahead.html"/>
 ```
 
 Finally, use the component in your application:
