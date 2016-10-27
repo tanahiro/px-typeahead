@@ -5,6 +5,11 @@ function fireKeyboardEvent(elem, key){
    elem.dispatchEvent(evt);
 }
 
+function fireFocusEvent(elem){
+  var evt = new CustomEvent('focus');
+   elem.dispatchEvent(evt);
+}
+
 function runCustomTests() {
 
   // Place any setup steps like variable declaration and initialization here
@@ -29,10 +34,11 @@ function runCustomTests() {
           assert.equal(typeaheadInputEl.textContent, '');
           typeaheadInputEl.autofocus = true;
           typeaheadInputEl.focus();
-          document.getElementsByTagName('input').value='a';
+          fireFocusEvent(typeaheadInputEl);
+          typeaheadInputEl.textContent = 'a';
           var node = Polymer.dom(this.root).node.querySelectorAll('.parentdiv');
           var classList = node[0].classList;
-          assert.include(classList.value,'focus');
+          assert.equal(classList[5],'focus');
           done();
           
     });
@@ -40,11 +46,11 @@ function runCustomTests() {
     test('Making sure of px-typehead input type', function(done){
       var typeaheadEl = Polymer.dom(this.root).querySelector('px-typeahead'),
           typeaheadInputEl = Polymer.dom(typeaheadEl.root).querySelector('input');
-          assert.equal(typeaheadInputEl.textContent, '');
+          assert.equal(typeaheadInputEl.textContent, 'a');
           typeaheadInputEl.autofocus = true;
-          typeaheadInputEl.focus();
-          document.getElementsByTagName('input').value='a';
+          fireFocusEvent(typeaheadInputEl);
           fireKeyboardEvent(typeaheadInputEl,'a');
+          assert.equal(typeaheadInputEl.textContent,'a');
           assert.equal(typeaheadInputEl.value,'');
           done();
           
@@ -54,20 +60,17 @@ function runCustomTests() {
       
           var onKeyupHandle = function(e) {
             var container = Polymer.dom(this.root).querySelector('.container');
-            document.body.style.background = "aqua";
             assert.isTrue(!container);  
           };
           var typeaheadEl = Polymer.dom(document).querySelector('px-typeahead'),
               typeaheadInputEl = Polymer.dom(typeaheadEl.root).querySelector('input');
           typeaheadInputEl.autofocus = true;
           typeaheadInputEl.addEventListener('keyup', onKeyupHandle);
-          typeaheadInputEl.focus();
+          fireFocusEvent(typeaheadInputEl);
           typeaheadInputEl.value = 'a';
           fireKeyboardEvent(typeaheadInputEl,'a');
           done();
           flush(() => {
-              var container = Polymer.dom(this.root).node.querySelector('.container');
-              expect(container).to.have.property('style');
               expect(document.getElementsByClassName('container').length).to.equal(1);
               
     
@@ -78,14 +81,13 @@ function runCustomTests() {
       
           var onKeyupHandle = function(e) {
             var container = Polymer.dom(this.root).querySelector('.container');
-            document.body.style.background = "aqua";
             assert.isTrue(!container);  
           };
           var typeaheadEl = Polymer.dom(document).querySelector('px-typeahead'),
               typeaheadInputEl = Polymer.dom(typeaheadEl.root).querySelector('input');
           typeaheadInputEl.autofocus = true;
           typeaheadInputEl.addEventListener('keyup', onKeyupHandle);
-          typeaheadInputEl.focus();
+          fireFocusEvent(typeaheadInputEl);
           typeaheadInputEl.value = 'a';
           fireKeyboardEvent(typeaheadInputEl,'a');
           done();

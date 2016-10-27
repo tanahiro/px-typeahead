@@ -9,7 +9,6 @@
 
 
 <!--
-Element providing solution to no problem in particular. As a simple example, increments a counter when clicked.
 
 ##### Usage
 
@@ -23,11 +22,8 @@ Element providing solution to no problem in particular. As a simple example, inc
 @demo demo.html
 -->
 <dom-module id="px-typeahead">
-  <link rel="import" type="css" href="css/noprefix/px-typeahead.css"/>
-  <link rel="import" type="css" href="css/noprefix/px-typeahead-sketch.css"/>
-  
+  <link rel="import" type="css" href="css/px-typeahead.css"/>
   <template>
-    
     <template is="dom-if" if="{{prefetchUrl}}">
       <iron-ajax
       auto
@@ -37,9 +33,8 @@ Element providing solution to no problem in particular. As a simple example, inc
       </iron-ajax>
     </template>
 
-    
     <div class="flex parentdiv u-pr-" tabindex="0">
-      <div style="flex:0 0 95%;"><input id="search" class="search u-pl-"
+      <div style="flex:0 1 95%;"><input id="search" class="search u-pl-"
       on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}" on-focus="_onfocus" on-blur="_onblur"></input>
       </div>
       <div class="fa-stack" style="flex:0 0 5%;"><i class="fa fa-search"></i></div>
@@ -48,10 +43,11 @@ Element providing solution to no problem in particular. As a simple example, inc
       <div class="container">
         <ul on-iron-select="_itemSelect" class="layout__item">
           <template is="dom-repeat" items="{{_suggestions}}">
-             <li tabindex="-1" on-iron-select="_selection" on-tap="_select" on-mouseover="_onhover" on-keyup="_keyup">
+             <li tabindex="-1" on-iron-select="_selection" on-tap="_select" on-mouseover="_onhover" 
+             on-keyup="_keyup">
              {{item}}
             </li>
-          </template> 
+          </template>
         </ul>
       </div>
     </template>
@@ -61,7 +57,7 @@ Element providing solution to no problem in particular. As a simple example, inc
 <script>
   Polymer({
 
-    is: 'px-typeahead', 
+    is: 'px-typeahead',
 
     /**
          * Properties block, expose attribute values to the DOM via 'notify'
@@ -70,16 +66,12 @@ Element providing solution to no problem in particular. As a simple example, inc
          * @type Object
          */
     properties: {
-      
       /**
        * The label that will show up as the label for tags input. It not specified, no label will show up.
        */
-      label:{
-        type:String,
-        value:''
-      },
+      label: String,
       /**
-       * The placeholder for the paper-input element.
+       * The placeholder for the input element.
        */
       placeholder:{
         type:String,
@@ -88,10 +80,7 @@ Element providing solution to no problem in particular. As a simple example, inc
       /**
        * The candidates from local variable.
        */
-      localCandidates:{
-        type:Array,
-        value:[]
-      },
+      localCandidates:Array,
       /**
        * Url for a prefectched list in json format for the list of suggestion candidates. The response should be something like: ["a","b"]
        */
@@ -99,17 +88,11 @@ Element providing solution to no problem in particular. As a simple example, inc
       /**
       * The prefetched candidates get by prefetchUrl
       */
-      _prefetchedCandidates:{
-        type:Array,
-        value:[]
-      },
+      _prefetchedCandidates:Array,
       /**
        * Internal variable holding all matched suggestions.
        */
-      _suggestions:{
-        type:Array,
-        value:[]
-      },
+      _suggestions:Array,
       /**
        * Maximum number of suggestions to show up in typeahead.
        */
@@ -121,7 +104,6 @@ Element providing solution to no problem in particular. As a simple example, inc
        * Remote url to perform a search using the value in the input. The input value will be passed in as url parameter. The placeholder should be %QUERY.
        */
       remoteUrl:String,
-      
       /**
        * A boolean property to indicate if there is a searching going on to remoteUrl.
        * This propery only makes sense if remoteUrl is set up.
@@ -136,7 +118,8 @@ Element providing solution to no problem in particular. As a simple example, inc
        */
       inputValue:{
         type:String,
-        notify:true
+        notify:true,
+        observer: '_itemSelect'
       },
       /**
        * //TODO - For Future Input object.
@@ -145,7 +128,6 @@ Element providing solution to no problem in particular. As a simple example, inc
         type:Object,
         notify:true
       },
-      
     },
 
      // Element Lifecycle
@@ -158,14 +140,12 @@ Element providing solution to no problem in particular. As a simple example, inc
       // This is the point where you should make modifications to the DOM (when
       // necessary), or kick off any processes the element wants to perform.
       document.addEventListener("click", function(){
-        var ptinputs = document.querySelectorAll('px-typeahead-input')
+        var ptinputs = document.querySelectorAll('px-typeahead')
         for (var i = 0; i < ptinputs.length; i ++){
           var ptinput = ptinputs[i];
           ptinput._suggestions = [];
         }
       });
-      var input = Polymer.dom(this.root).querySelector('input');
-      input.autocomplete = 'address-level4';
     },
 
     attached: function() {
@@ -184,8 +164,7 @@ Element providing solution to no problem in particular. As a simple example, inc
       // Use this to clean up anything you did in `attached`.
     },
     _itemSelect:function(e, detail){
-      this.fire('pt-item-select',detail);
-      console.log('_itemSelect',detail);
+      this.fire('pt-item-select',this.inputValue);
     },
     // Element Behavior
     /**
@@ -203,31 +182,27 @@ Element providing solution to no problem in particular. As a simple example, inc
      *
      */
     _onfocus: function(e) {
-      e.currentTarget.parentElement.parentElement.classList.add('focus');
+      Polymer.dom(this.root).querySelector('.parentdiv').classList.add('focus');
     },
     /**
      * removing the outline on blur out of input
      *
      */
     _onblur: function(e) {
-      e.currentTarget.parentElement.parentElement.classList.remove('focus');
+      Polymer.dom(this.root).querySelector('.parentdiv').classList.remove('focus');
     },
     /**
      * Callback on mouseover event on list-item
      *
      */
     _selection:function(e){
-      console.log('inside _selection');
       var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
-      if (suggestionsMenu && typeof(suggestionsMenu) != 'undefined'){
+      if (suggestionsMenu){
         var selectedItem = e.currentTarget;
         index = selectedItem.value;
         var input = Polymer.dom(this.root).querySelector('input');
         input.autofocus = true;
         input.focus();
-      }
-      else{
-        console.log("suggestionsMenu not defined");
       }
     },
     /**
@@ -236,7 +211,7 @@ Element providing solution to no problem in particular. As a simple example, inc
      */
     _onhover: function(e) {
       var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
-      if (alreadySelected && typeof(alreadySelected) != 'undefined'){
+      if (alreadySelected){
         alreadySelected.classList.remove('item-selected');
       }
       e.currentTarget.classList.add('item-selected');
@@ -246,13 +221,12 @@ Element providing solution to no problem in particular. As a simple example, inc
      *
      */
     _select: function(e) {
-      //Reset the input value 
+      //Reset the input value
       this.inputValue = '';
       var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
-      if (suggestionsMenu && typeof(suggestionsMenu) != 'undefined'){
+      if (suggestionsMenu){
         var selectedItem = e.currentTarget;
         selectedItem.classList.add('item-selected');
-        //index = Number(suggestionsMenu.indexOf(selectedItem));
         var text = e.currentTarget.textContent.trim();
         var index = this._suggestions.indexOf(text);
 
@@ -261,9 +235,6 @@ Element providing solution to no problem in particular. As a simple example, inc
         this.fire('pt-item-confirmed',e.target);
         e.stopPropagation();
       }
-      else{
-        console.log("suggestionsMenu not defined");
-      }
     },
     /**
      * Callback for keyup event
@@ -271,20 +242,18 @@ Element providing solution to no problem in particular. As a simple example, inc
      * @param {e} event
      */
     _keyup: function(e) {
-     
       if (e.which == 40){
           var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
           var selectedItem;
-          if (alreadySelected && typeof(alreadySelected) != 'undefined'){
+          if (alreadySelected){
            alreadySelected.classList.remove('item-selected');
            selectedItem = alreadySelected.nextElementSibling;
            if(selectedItem) selectedItem.classList.add('item-selected');
            else return;
-           
         }
         else{
           var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
-          if (suggestionsMenu && typeof(suggestionsMenu) != 'undefined'){
+          if (suggestionsMenu){
             var children = suggestionsMenu.getElementsByTagName('li');
             selectedItem = children[0];
             selectedItem.classList.add('item-selected');
@@ -296,28 +265,30 @@ Element providing solution to no problem in particular. As a simple example, inc
         //up
           var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
           var selectedItem;
-          if (alreadySelected && typeof(alreadySelected) != 'undefined'){
-             alreadySelected.classList.remove('item-selected');
-             selectedItem = alreadySelected.previousElementSibling;
-             if(selectedItem) selectedItem.classList.add('item-selected');
-             else return;
-             
-            } else {
-            var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
-            if (suggestionsMenu && typeof(suggestionsMenu) != 'undefined') {
-                var children = suggestionsMenu.getElementsByTagName('li');
-                selectedItem = children[0];
+          if (alreadySelected){
+               alreadySelected.classList.remove('item-selected');
+               selectedItem = alreadySelected.previousElementSibling;
+               if(selectedItem) {
                 selectedItem.classList.add('item-selected');
+              } else {
+                return;
               }
+            } else {
+              var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
+              if (suggestionsMenu) {
+                  var children = suggestionsMenu.getElementsByTagName('li');
+                  selectedItem = children[0];
+                  selectedItem.classList.add('item-selected');
+                }
             }
             this.inputValue = selectedItem.textContent.trim();
           }
       else if (e.which == 13 || e.which == 32){
-           //Reset the input value 
+           //Reset the input value
           this.inputValue = '';
           var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
           var selectedItem;
-          if (alreadySelected && typeof(alreadySelected) != 'undefined'){
+          if (alreadySelected){
             selectedItem = alreadySelected;
             selectedItem.classList.remove('item-selected');
           }
@@ -329,21 +300,16 @@ Element providing solution to no problem in particular. As a simple example, inc
         }
       else {
           this._search(this.$.search.value.trim());
-          /*var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
-          if (suggestionsMenu && typeof(suggestionsMenu) != 'undefined'){
-            suggestionsMenu.select(-1);
-          }*/
           var input = Polymer.dom(this.root).querySelector('input');
           input.autofocus = true;
           input.focus();
       }
     },
     _getDisplayValue:function(item){
-      if (this.displayProp && typeof(this.displayProp) != 'undefined'){
+      if (this.displayProp){
         return item[this.displayProp];
       }
       else{
-        console.log("px-typeahead-input: displayProp not set up");
         return "";
       }
     },
@@ -369,9 +335,9 @@ Element providing solution to no problem in particular. As a simple example, inc
       var patt =  new RegExp(term.toLowerCase());
       var matched = [];
 
-      if (typeof(this.localCandidates) != 'undefined'){
+      if (this.localCandidates){
         for (var i = 0; i < this.localCandidates.length; i ++){
-          if (matched.length == this.maxSuggestions){
+          if (matched.length === this.maxSuggestions){
             break;
           }
           var toTest = this._getTestCandidate(this.localCandidates[i]);
@@ -384,9 +350,9 @@ Element providing solution to no problem in particular. As a simple example, inc
           }
         }
       }
-      if (typeof(this._prefetchedCandidates) != 'undefined'){
+      if (this._prefetchedCandidates){
         for (var i = 0; i < this._prefetchedCandidates.length; i ++){
-          if (matched.length == this.maxSuggestions){
+          if (matched.length === this.maxSuggestions){
             break;
           }
           var toTest = this._getTestCandidate(this._prefetchedCandidates[i]);
@@ -399,8 +365,8 @@ Element providing solution to no problem in particular. As a simple example, inc
           }
         }
       }
-      // this._suggestions = this._suggestions.concat(matched);
-      if (typeof(this.remoteUrl) != 'undefined'){
+      
+      if (this.remoteUrl){
         var pt_element = this;
         pt_element.fire('pt-remote-searching-start',pt_element);
         pt_element.remoteUrlSearching = true;

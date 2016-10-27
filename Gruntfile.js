@@ -23,8 +23,8 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'css/noprefix/px-typeahead-sketch.css': 'sass/px-typeahead-sketch.scss',
-          'css/noprefix/px-typeahead.css': 'sass/px-typeahead-predix.scss'
+          'css/px-typeahead-sketch.css': 'sass/px-typeahead-sketch.scss',
+          'css/px-typeahead.css': 'sass/px-typeahead-predix.scss'
         }
       }
     },
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       multiple_files: {
         expand: true,
         flatten: true,
-        src: 'css/noprefix/*.css',
+        src: 'css/*.css',
         dest: 'css'
       }
     },
