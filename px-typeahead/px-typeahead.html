@@ -1,0 +1,405 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+-->
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+
+<!--
+
+##### Usage
+
+    <px-typeahead max-suggestions="10" local-candidates="{{your-array-of-input-strings}}" placeholder="your-placeholder">
+    </px-typeahead>
+
+
+@element px-typeahead
+@blurb Element providing solution to no problem in particular.
+@homepage index.html
+@demo demo.html
+-->
+<dom-module id="px-typeahead">
+  <link rel="import" type="css" href="css/px-typeahead.css"/>
+  <template>
+    <template is="dom-if" if="{{prefetchUrl}}">
+      <iron-ajax
+      auto
+      url="{{prefetchUrl}}"
+      handle-as="json"
+      last-response="{{_prefetchedCandidates}}">
+      </iron-ajax>
+    </template>
+
+    <div class="flex parentdiv u-pr-" tabindex="0">
+      <div style="flex:0 1 95%;"><input id="search" class="search u-pl-"
+      on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}" on-focus="_onfocus" on-blur="_onblur"></input>
+      </div>
+      <div class="fa-stack" style="flex:0 0 5%;"><i class="fa fa-search"></i></div>
+    </div>
+    <template is="dom-if" if="{{_suggestions.length}}">
+      <div class="container">
+        <ul on-iron-select="_itemSelect" class="layout__item">
+          <template is="dom-repeat" items="{{_suggestions}}">
+             <li tabindex="-1" on-iron-select="_selection" on-tap="_select" on-mouseover="_onhover" 
+             on-keyup="_keyup">
+             {{item}}
+            </li>
+          </template>
+        </ul>
+      </div>
+    </template>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'px-typeahead',
+
+    /**
+         * Properties block, expose attribute values to the DOM via 'notify'
+         *
+         * @property properties
+         * @type Object
+         */
+    properties: {
+      /**
+       * The label that will show up as the label for tags input. It not specified, no label will show up.
+       */
+      label: String,
+      /**
+       * The placeholder for the input element.
+       */
+      placeholder:{
+        type:String,
+        value:'Please enter values here'
+      },
+      /**
+       * The candidates from local variable.
+       */
+      localCandidates:Array,
+      /**
+       * Url for a prefectched list in json format for the list of suggestion candidates. The response should be something like: ["a","b"]
+       */
+      prefetchUrl:String,
+      /**
+      * The prefetched candidates get by prefetchUrl
+      */
+      _prefetchedCandidates:Array,
+      /**
+       * Internal variable holding all matched suggestions.
+       */
+      _suggestions:Array,
+      /**
+       * Maximum number of suggestions to show up in typeahead.
+       */
+      maxSuggestions:{
+        type:Number,
+        value:5
+      },
+      /**
+       * Remote url to perform a search using the value in the input. The input value will be passed in as url parameter. The placeholder should be %QUERY.
+       */
+      remoteUrl:String,
+      /**
+       * A boolean property to indicate if there is a searching going on to remoteUrl.
+       * This propery only makes sense if remoteUrl is set up.
+       */
+      remoteUrlSearching:{
+        type:Boolean,
+        value:false,
+        notify:true
+      },
+      /**
+       * Input value.
+       */
+      inputValue:{
+        type:String,
+        notify:true,
+        observer: '_itemSelect'
+      },
+      /**
+       * //TODO - For Future Input object.
+       */
+      inputObject:{
+        type:Object,
+        notify:true
+      },
+    },
+
+     // Element Lifecycle
+
+    ready: function() {
+      // `ready` is called after all elements have been configured, but
+      // propagates bottom-up. This element's children are ready, but parents
+      // are not.
+      //
+      // This is the point where you should make modifications to the DOM (when
+      // necessary), or kick off any processes the element wants to perform.
+      document.addEventListener("click", function(){
+        var ptinputs = document.querySelectorAll('px-typeahead')
+        for (var i = 0; i < ptinputs.length; i ++){
+          var ptinput = ptinputs[i];
+          ptinput._suggestions = [];
+        }
+      });
+    },
+
+    attached: function() {
+      // `attached` fires once the element and its parents have been inserted
+      // into a document.
+      //
+      // This is a good place to perform any work related to your element's
+      // visual state or active behavior (measuring sizes, beginning animations,
+      // loading resources, etc).
+    },
+
+    detached: function() {
+      // The analog to `attached`, `detached` fires when the element has been
+      // removed from a document.
+      //
+      // Use this to clean up anything you did in `attached`.
+    },
+    _itemSelect:function(e, detail){
+      this.fire('pt-item-select',this.inputValue);
+    },
+    // Element Behavior
+    /**
+     * Callback for keydown event
+     *
+     * @param {e} event
+     */
+    _keydown: function(e) {
+      if (e.which == 40 || e.which == 38){
+          e.preventDefault();
+      }
+    },
+    /**
+     * adding the outline on focus of input
+     *
+     */
+    _onfocus: function(e) {
+      Polymer.dom(this.root).querySelector('.parentdiv').classList.add('focus');
+    },
+    /**
+     * removing the outline on blur out of input
+     *
+     */
+    _onblur: function(e) {
+      Polymer.dom(this.root).querySelector('.parentdiv').classList.remove('focus');
+    },
+    /**
+     * Callback on mouseover event on list-item
+     *
+     */
+    _selection:function(e){
+      var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
+      if (suggestionsMenu){
+        var selectedItem = e.currentTarget;
+        index = selectedItem.value;
+        var input = Polymer.dom(this.root).querySelector('input');
+        input.autofocus = true;
+        input.focus();
+      }
+    },
+    /**
+     * on mouse over for each li item
+     *
+     */
+    _onhover: function(e) {
+      var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
+      if (alreadySelected){
+        alreadySelected.classList.remove('item-selected');
+      }
+      e.currentTarget.classList.add('item-selected');
+    },
+    /**
+     * Callback on click event on list item
+     *
+     */
+    _select: function(e) {
+      //Reset the input value
+      this.inputValue = '';
+      var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
+      if (suggestionsMenu){
+        var selectedItem = e.currentTarget;
+        selectedItem.classList.add('item-selected');
+        var text = e.currentTarget.textContent.trim();
+        var index = this._suggestions.indexOf(text);
+
+        this.inputValue = this._suggestions[index];
+        this._suggestions = [];
+        this.fire('pt-item-confirmed',e.target);
+        e.stopPropagation();
+      }
+    },
+    /**
+     * Callback for keyup event
+     *
+     * @param {e} event
+     */
+    _keyup: function(e) {
+      if (e.which == 40){
+          var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
+          var selectedItem;
+          if (alreadySelected){
+           alreadySelected.classList.remove('item-selected');
+           selectedItem = alreadySelected.nextElementSibling;
+           if(selectedItem) selectedItem.classList.add('item-selected');
+           else return;
+        }
+        else{
+          var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
+          if (suggestionsMenu){
+            var children = suggestionsMenu.getElementsByTagName('li');
+            selectedItem = children[0];
+            selectedItem.classList.add('item-selected');
+          }
+        }
+        this.inputValue = selectedItem.textContent.trim();
+        }
+      else if (e.which == 38){
+        //up
+          var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
+          var selectedItem;
+          if (alreadySelected){
+               alreadySelected.classList.remove('item-selected');
+               selectedItem = alreadySelected.previousElementSibling;
+               if(selectedItem) {
+                selectedItem.classList.add('item-selected');
+              } else {
+                return;
+              }
+            } else {
+              var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
+              if (suggestionsMenu) {
+                  var children = suggestionsMenu.getElementsByTagName('li');
+                  selectedItem = children[0];
+                  selectedItem.classList.add('item-selected');
+                }
+            }
+            this.inputValue = selectedItem.textContent.trim();
+          }
+      else if (e.which == 13 || e.which == 32){
+           //Reset the input value
+          this.inputValue = '';
+          var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
+          var selectedItem;
+          if (alreadySelected){
+            selectedItem = alreadySelected;
+            selectedItem.classList.remove('item-selected');
+          }
+
+          this.inputValue = selectedItem.textContent.trim();
+          this._suggestions = [];
+          this.fire('pt-item-confirmed',selectedItem);
+          Polymer.dom(this.root).querySelector('input').focus();
+        }
+      else {
+          this._search(this.$.search.value.trim());
+          var input = Polymer.dom(this.root).querySelector('input');
+          input.autofocus = true;
+          input.focus();
+      }
+    },
+    _getDisplayValue:function(item){
+      if (this.displayProp){
+        return item[this.displayProp];
+      }
+      else{
+        return "";
+      }
+    },
+    _getTestCandidate:function(item){
+      if (this.isCandidatesJson == true){
+        var toTest = [];
+        for (var i = 0; i < this.searchableProps.length; i ++){
+          if (item[this.searchableProps[i]] != "undefined"){
+            toTest.push(item[this.searchableProps[i]]);
+          }
+        }
+        return toTest;
+      }
+      else{
+        return [item];
+      }
+    },
+    _search:function(term){
+      if (term == ""){
+        this._suggestions = [];
+        return;
+      }
+      var patt =  new RegExp(term.toLowerCase());
+      var matched = [];
+
+      if (this.localCandidates){
+        for (var i = 0; i < this.localCandidates.length; i ++){
+          if (matched.length === this.maxSuggestions){
+            break;
+          }
+          var toTest = this._getTestCandidate(this.localCandidates[i]);
+          for (var j = 0; j < toTest.length; j ++){
+            var item = toTest[j];
+            if (patt.test(item.toLowerCase()) == true){
+              matched.push(this.localCandidates[i]);
+              break;
+            }
+          }
+        }
+      }
+      if (this._prefetchedCandidates){
+        for (var i = 0; i < this._prefetchedCandidates.length; i ++){
+          if (matched.length === this.maxSuggestions){
+            break;
+          }
+          var toTest = this._getTestCandidate(this._prefetchedCandidates[i]);
+          for (var j = 0; j < toTest.length; j ++){
+            var item = toTest[j];
+            if (patt.test(item.toLowerCase()) == true){
+              matched.push(this._prefetchedCandidates[i]);
+              break;
+            }
+          }
+        }
+      }
+      
+      if (this.remoteUrl){
+        var pt_element = this;
+        pt_element.fire('pt-remote-searching-start',pt_element);
+        pt_element.remoteUrlSearching = true;
+        this.debounce('remoteUrlSearch', function(){
+          var url = pt_element.remoteUrl.replace("%QUERY", term);
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.open('GET', url, true);
+          xmlhttp.setRequestHeader("Content-type", "application/json");
+          var ptinput = pt_element;
+          xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState === 4) {
+                if (xmlhttp.status == 200){
+                    var resp = xmlhttp.response;
+                    var remoteMatched = JSON.parse(resp);
+                    var cuttedMatched = remoteMatched.slice(0,ptinput.maxSuggestions);
+                    matched = matched.concat(cuttedMatched);
+                    // ptinput._suggestions = ptinput._suggestions.concat(cuttedMatched);
+                    ptinput._suggestions = matched;
+                }
+                pt_element.remoteUrlSearching = false;
+                pt_element.fire('pt-remote-searching-end',pt_element);
+              }
+
+
+          }
+          xmlhttp.send();
+        }, this.remoteUrlWaitMs);
+      }
+      else{
+        this._suggestions = matched;
+      }
+    }
+
+  });
+
+</script>
