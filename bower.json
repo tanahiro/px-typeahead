@@ -1,6 +1,6 @@
 {
   "name": "px-typeahead",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": [
     "px-typeahead.html"
   ],
@@ -14,7 +14,7 @@
     "test"
   ],
   "dependencies": {
-    "polymer": "^1.5.0",
+    "polymer": "^1.6.0",
     "px-theme": "~0.8.0",
     "px-spacing-design": "^0.3.8",
     "px-list-ui-design": "^0.3.11",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#~v1.1.6",
-    "px-starter-kit-design": "~0.5.5",
+    "px-starter-kit-design": "~0.6.0",
     "px-forms-design": "~0.3.11"
   }
 }
