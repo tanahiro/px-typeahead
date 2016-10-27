@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "polymer": "^1.6.0",
-    "px-theme": "~0.8.0",
+    "px-theme": "~1.1.2",
     "px-spacing-design": "^0.3.8",
     "px-list-ui-design": "^0.3.11",
     "iron-ajax": "^1.4.3",
