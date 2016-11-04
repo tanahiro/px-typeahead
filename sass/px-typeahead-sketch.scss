@@ -19,7 +19,9 @@ THIS FILE SHOULD CONTAIN ONLY ABSTRACT/'SKETCH' THEME RULES, NOT SPECIFIC TO PRE
 Predix branding rules go in px-typeahead-predix.scss, not in this file.
 */
 
+// Settting
 
+// Tools
 
 // Generic
 @import "px-normalize-design/_generic.normalize.scss";
@@ -30,12 +32,13 @@ Predix branding rules go in px-typeahead-predix.scss, not in this file.
 @import "px-flexbox-design/_base.flexbox.scss";
 @import "px-viewport-design/_base.viewport.scss";
 
-$inuit-enable-input--tiny : true;
-$inuit-enable-input--small : true;
-$inuit-enable-input--regular : true;
-$inuit-enable-input--large : true;
-@import "px-forms-design/_base.forms.scss";
+// Base
 
+// Meta
+
+// Objects
+
+// Component
 
 :host {
   cursor: pointer;
@@ -44,30 +47,6 @@ $inuit-enable-input--large : true;
   font-family: "GE Inspira Sans", sans-serif;
   font-size : medium;
 }
-
-
-
-
-// Component
-$inuit-enable-paddings--small: true;
-$inuit-enable-paddings--large : true;
-$inuit-enable-responsive-margins--small : true;
-$inuit-enable-responsive-margins--large : true;
-
-@import "px-spacing-design/_trumps.spacing.scss";
-
-$inuit-enable-list-ui--tiny : true;
-$inuit-enable-list-ui--small : true;
-$inuit-enable-list-ui--large : true;
-$inuit-enable-list-ui--huge : true;
-
-@import "px-list-ui-design/_objects.list-ui.scss";
-
-
-// Trumps
-@import "inuit-clearfix/_trumps.clearfix.scss";
-@import "px-spacing-responsive-design/_trumps.spacing-responsive.scss";
-@import "px-widths-responsive-design/_trumps.widths-responsive.scss";
 
 .parentdiv {
 	justify-content: flex-end;
@@ -82,23 +61,32 @@ $inuit-enable-list-ui--huge : true;
   height: calculateRem(30px);
   max-height: calculateRem(222px);
 }
-
+.fa-search {
+    position: relative;
+    z-index: 1;
+}
 .container {
 	ul {
 		padding-left: 0;
 		display: inline-block;
 		margin : 0;
 		max-height: calculateRem(222px);
-	    overflow-y: auto;
-	    z-index: 2;
-	  	position: absolute;
-		width: 33.1%; // not exactly 1/3
+    overflow-y: auto;
+    z-index: 2;
+  	position: absolute;
 		margin-left: -1px; //to account for border
 		li {
 			text-overflow: ellipsis;
 			cursor: pointer;
-      		outline: none;
-			padding: $inuit-base-spacing-unit--tiny;
+      outline: none;
   		}
 	}
 }
+
+// Trumps
+$inuit-enable-paddings--small: true;
+$inuit-enable-paddings--tiny: true;
+@import "px-spacing-design/_trumps.spacing.scss";
+@import "inuit-clearfix/_trumps.clearfix.scss";
+@import "px-spacing-responsive-design/_trumps.spacing-responsive.scss";
+@import "px-widths-responsive-design/_trumps.widths-responsive.scss";

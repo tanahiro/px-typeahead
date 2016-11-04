@@ -6,7 +6,7 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
-
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 
 <!--
 
@@ -17,13 +17,15 @@
 
 
 @element px-typeahead
-@blurb Element providing solution to no problem in particular.
+@blurb showing px-typeahead is a Predix UI component that show possible completion options for the search term entered
 @homepage index.html
-@demo demo.html
+@demo index.html
 -->
+<link rel="import" href="css/px-typeahead-styles.html">
+
 <dom-module id="px-typeahead">
-  <link rel="import" type="css" href="css/px-typeahead.css"/>
   <template>
+    <style include="px-typeahead-styles"></style>
     <template is="dom-if" if="{{prefetchUrl}}">
       <iron-ajax
       auto
@@ -33,18 +35,18 @@
       </iron-ajax>
     </template>
 
-    <div class="flex parentdiv u-pr-" tabindex="0">
-      <div style="flex:0 1 95%;"><input id="search" class="search u-pl-"
-      on-keyup="_keyup" on-keydown="_keydown" max-suggestions="{{maxSuggestions}}" placeholder="{{placeholder}}" value="{{inputValue}}" on-focus="_onfocus" on-blur="_onblur"></input>
+    <div class$="[[_calculateParentDivClass(inputFocused)]]" tabindex="0" id="mainContainer">
+      <div style="flex:0 1 99%;"><input id="search" class="search u-pl--"
+      on-keyup="_keyup" on-keydown="_keydown" placeholder="{{placeholder}}" value="{{inputValue}}" on-focus="_onfocus" on-blur="_onblur"></input>
       </div>
-      <div class="fa-stack" style="flex:0 0 5%;"><i class="fa fa-search"></i></div>
+      <div class="fa-stack" style="flex:0 0 1%;"><i class="fa fa-search"></i></div>
     </div>
-    <template is="dom-if" if="{{_suggestions.length}}">
-      <div class="container">
-        <ul on-iron-select="_itemSelect" class="layout__item">
+    <template is="dom-if" if="{{_isSuggestionsEmtpy(_suggestions)}}">
+      <div class="container" >
+        <ul class="layout__item" id="searchResults">
           <template is="dom-repeat" items="{{_suggestions}}">
-             <li tabindex="-1" on-iron-select="_selection" on-tap="_select" on-mouseover="_onhover" 
-             on-keyup="_keyup">
+             <li tabindex="-1" on-iron-select="_select" on-mouseover="_onhover"
+             on-keyup="_keyup" class="u-p--">
              {{item}}
             </li>
           </template>
@@ -66,47 +68,71 @@
          * @type Object
          */
     properties: {
-      /**
-       * The label that will show up as the label for tags input. It not specified, no label will show up.
-       */
-      label: String,
+      inputFocused: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
       /**
        * The placeholder for the input element.
        */
       placeholder:{
         type:String,
-        value:'Please enter values here'
+        value:'Enter Your Search Query'
       },
       /**
-       * The candidates from local variable.
+       * The search candidates from local data model.
        */
-      localCandidates:Array,
+      localCandidates:{
+      type: Array,
+      value: function() {
+        return [];
+      }},
       /**
-       * Url for a prefectched list in json format for the list of suggestion candidates. The response should be something like: ["a","b"]
+       * Url for a prefectched list in json format for the list of suggestion candidates.
+       * The response should be an array - for example: ["a","b"]
        */
-      prefetchUrl:String,
+      prefetchUrl:{
+        type: String,
+        value: ''
+      },
       /**
-      * The prefetched candidates get by prefetchUrl
+      * The prefetched candidates retrieved by prefetchUrl
       */
-      _prefetchedCandidates:Array,
+      _prefetchedCandidates:{
+        type: Array,
+        value: function() {
+          return [];
+        }
+      },
       /**
        * Internal variable holding all matched suggestions.
        */
-      _suggestions:Array,
+      _suggestions:{
+        type: Array,
+        value: function() {
+          return [];
+        },
+        notify: true
+      },
       /**
-       * Maximum number of suggestions to show up in typeahead.
+       * Maximum number of suggestions
        */
       maxSuggestions:{
         type:Number,
-        value:5
+        value:5,
+        notify:true
       },
       /**
        * Remote url to perform a search using the value in the input. The input value will be passed in as url parameter. The placeholder should be %QUERY.
        */
-      remoteUrl:String,
+      remoteUrl:{
+        type: String,
+        value: ''
+      },
       /**
-       * A boolean property to indicate if there is a searching going on to remoteUrl.
-       * This propery only makes sense if remoteUrl is set up.
+       * A boolean property to indicate if a search happens with a remote Url.
+       * must be used together with remoteUrl.
        */
       remoteUrlSearching:{
         type:Boolean,
@@ -114,12 +140,11 @@
         notify:true
       },
       /**
-       * Input value.
+       * The current value of the input.
        */
       inputValue:{
         type:String,
-        notify:true,
-        observer: '_itemSelect'
+        notify:true
       },
       /**
        * //TODO - For Future Input object.
@@ -127,11 +152,10 @@
       inputObject:{
         type:Object,
         notify:true
-      },
+      }
     },
-
-     // Element Lifecycle
-
+    behaviors: [Polymer.IronResizableBehavior],
+    listeners: {'iron-resize': '_setSearchResultSize'},
     ready: function() {
       // `ready` is called after all elements have been configured, but
       // propagates bottom-up. This element's children are ready, but parents
@@ -140,40 +164,35 @@
       // This is the point where you should make modifications to the DOM (when
       // necessary), or kick off any processes the element wants to perform.
       document.addEventListener("click", function(){
-        var ptinputs = document.querySelectorAll('px-typeahead')
-        for (var i = 0; i < ptinputs.length; i ++){
-          var ptinput = ptinputs[i];
-          ptinput._suggestions = [];
+        var ptinputs = document.querySelectorAll('px-typeahead');
+
+        for (var i = 0, len = ptinputs.length; i < len; i ++){
+          ptinputs[i]._suggestions = [];
         }
       });
+      window.addEventListener('iron-resize', function() {console.log('resize!');});
+    },
+    _setSearchResultSize: function() {
+      if (this.$$('#searchResults')) {
+        var mainContainerRect = this.$.mainContainer.getBoundingClientRect();
+        this.$$('#searchResults').style.width = mainContainerRect.width + 2 + 'px'; //that 2 is for the outline
+      }
+    },
+    _isSuggestionsEmtpy: function() {
+      return this._suggestions.length;
+    },
+    _calculateParentDivClass: function() {
+      var focus = (this.inputFocused) ? ' focus' :'';
+      return 'flex parentdiv u-pr-' + focus;
     },
 
-    attached: function() {
-      // `attached` fires once the element and its parents have been inserted
-      // into a document.
-      //
-      // This is a good place to perform any work related to your element's
-      // visual state or active behavior (measuring sizes, beginning animations,
-      // loading resources, etc).
-    },
-
-    detached: function() {
-      // The analog to `attached`, `detached` fires when the element has been
-      // removed from a document.
-      //
-      // Use this to clean up anything you did in `attached`.
-    },
-    _itemSelect:function(e, detail){
-      this.fire('pt-item-select',this.inputValue);
-    },
-    // Element Behavior
     /**
-     * Callback for keydown event
+     * Callback for keydown event, checks on keys up or down, and disables them.
      *
      * @param {e} event
      */
     _keydown: function(e) {
-      if (e.which == 40 || e.which == 38){
+      if (e.which === 40 || e.which === 38){
           e.preventDefault();
       }
     },
@@ -182,28 +201,14 @@
      *
      */
     _onfocus: function(e) {
-      Polymer.dom(this.root).querySelector('.parentdiv').classList.add('focus');
+      this.set('inputFocused', true);
     },
     /**
      * removing the outline on blur out of input
      *
      */
     _onblur: function(e) {
-      Polymer.dom(this.root).querySelector('.parentdiv').classList.remove('focus');
-    },
-    /**
-     * Callback on mouseover event on list-item
-     *
-     */
-    _selection:function(e){
-      var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
-      if (suggestionsMenu){
-        var selectedItem = e.currentTarget;
-        index = selectedItem.value;
-        var input = Polymer.dom(this.root).querySelector('input');
-        input.autofocus = true;
-        input.focus();
-      }
+      this.set('inputFocused', false);
     },
     /**
      * on mouse over for each li item
@@ -217,24 +222,98 @@
       e.currentTarget.classList.add('item-selected');
     },
     /**
+     * Fired whenever an item is selected.
+     * @event px-typeahead-item-selected
+     * @param {String} {The Selected Value}
+     */
+    /**
      * Callback on click event on list item
      *
      */
     _select: function(e) {
-      //Reset the input value
-      this.inputValue = '';
       var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
       if (suggestionsMenu){
-        var selectedItem = e.currentTarget;
-        selectedItem.classList.add('item-selected');
-        var text = e.currentTarget.textContent.trim();
-        var index = this._suggestions.indexOf(text);
+        var selectedItem = e.currentTarget,
+            text = e.currentTarget.textContent.trim();
 
-        this.inputValue = this._suggestions[index];
-        this._suggestions = [];
-        this.fire('pt-item-confirmed',e.target);
+        selectedItem.classList.add('item-selected');
+        this.$search.focus();
+        this.set('inputValue',text);
+        this.set('_suggestions',[]);
+        this.fire('px-typeahead-item-selected',this.inputValue);
         e.stopPropagation();
       }
+    },
+    _downArrowPress: function(e) {
+      var alreadySelected,
+          selectedItem,
+          suggestionsMenu,
+          children;
+      alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
+
+      if (alreadySelected) {
+        alreadySelected.classList.remove('item-selected');
+        selectedItem = alreadySelected.nextElementSibling;
+
+        if(selectedItem) {
+         selectedItem.classList.add('item-selected');
+        } else {
+         return;
+        }
+      } else {
+        suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
+
+        if (suggestionsMenu){
+          children = suggestionsMenu.getElementsByTagName('li');
+          selectedItem = children[0];
+          selectedItem.classList.add('item-selected');
+        }
+      }
+    this.set('inputValue',selectedItem.textContent.trim());
+    },
+    _upArrowPress: function(e) {
+      var alreadySelected,
+          selectedItem,
+          suggestionsMenu,
+          children;
+      alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
+      if (alreadySelected){
+        alreadySelected.classList.remove('item-selected');
+        selectedItem = alreadySelected.previousElementSibling;
+        if(selectedItem) {
+          selectedItem.classList.add('item-selected');
+        } else {
+          return;
+        }
+      } else {
+        suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
+
+        if (suggestionsMenu) {
+          children = suggestionsMenu.getElementsByTagName('li');
+          selectedItem = children[0];
+          selectedItem.classList.add('item-selected');
+        }
+      }
+      this.set('inputValue',selectedItem.textContent.trim());
+    },
+    _enterOrSpacePress: function(e) {
+      var alreadySelected,
+          selectedItem,
+          suggestionsMenu,
+          children;
+
+      this.set('inputValue','');
+      alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
+
+      if (alreadySelected){
+        selectedItem = alreadySelected;
+        selectedItem.classList.remove('item-selected');
+      }
+
+      this.set('inputValue',selectedItem.textContent.trim());
+      this.set('_suggestions',[]);
+      this.fire('px-typeahead-item-confirmed',selectedItem);
+      Polymer.dom(this.root).querySelector('input').focus();
     },
     /**
      * Callback for keyup event
@@ -242,164 +321,155 @@
      * @param {e} event
      */
     _keyup: function(e) {
-      if (e.which == 40){
-          var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
-          var selectedItem;
-          if (alreadySelected){
-           alreadySelected.classList.remove('item-selected');
-           selectedItem = alreadySelected.nextElementSibling;
-           if(selectedItem) selectedItem.classList.add('item-selected');
-           else return;
-        }
-        else{
-          var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
-          if (suggestionsMenu){
-            var children = suggestionsMenu.getElementsByTagName('li');
-            selectedItem = children[0];
-            selectedItem.classList.add('item-selected');
-          }
-        }
-        this.inputValue = selectedItem.textContent.trim();
-        }
-      else if (e.which == 38){
-        //up
-          var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
-          var selectedItem;
-          if (alreadySelected){
-               alreadySelected.classList.remove('item-selected');
-               selectedItem = alreadySelected.previousElementSibling;
-               if(selectedItem) {
-                selectedItem.classList.add('item-selected');
-              } else {
-                return;
-              }
-            } else {
-              var suggestionsMenu = Polymer.dom(this.root).querySelector('ul');
-              if (suggestionsMenu) {
-                  var children = suggestionsMenu.getElementsByTagName('li');
-                  selectedItem = children[0];
-                  selectedItem.classList.add('item-selected');
-                }
-            }
-            this.inputValue = selectedItem.textContent.trim();
-          }
-      else if (e.which == 13 || e.which == 32){
-           //Reset the input value
-          this.inputValue = '';
-          var alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
-          var selectedItem;
-          if (alreadySelected){
-            selectedItem = alreadySelected;
-            selectedItem.classList.remove('item-selected');
-          }
+      var alreadySelected,
+          selectedItem,
+          suggestionsMenu,
+          children;
 
-          this.inputValue = selectedItem.textContent.trim();
-          this._suggestions = [];
-          this.fire('pt-item-confirmed',selectedItem);
-          Polymer.dom(this.root).querySelector('input').focus();
-        }
-      else {
-          this._search(this.$.search.value.trim());
-          var input = Polymer.dom(this.root).querySelector('input');
-          input.autofocus = true;
-          input.focus();
-      }
-    },
-    _getDisplayValue:function(item){
-      if (this.displayProp){
-        return item[this.displayProp];
-      }
-      else{
-        return "";
+      if (e.which === 40){ //down Arrow
+        this._downArrowPress(e);
+      } else if (e.which === 38){  //up arrow
+        this._upArrowPress(e);
+      } else if (e.which === 13 || e.which === 32){ //enter or space keys
+         this._enterOrSpacePress(e);
+      } else {
+        var input = this.$.search;
+        this._search(input.value.trim());
+        input.focus();
       }
     },
     _getTestCandidate:function(item){
-      if (this.isCandidatesJson == true){
+      if (this.isCandidatesJson){
         var toTest = [];
-        for (var i = 0; i < this.searchableProps.length; i ++){
-          if (item[this.searchableProps[i]] != "undefined"){
+        for (var i = 0, len=this.searchableProps.length; i < len; i ++){
+          if (item[this.searchableProps[i]] !== "undefined"){
             toTest.push(item[this.searchableProps[i]]);
           }
         }
         return toTest;
-      }
-      else{
+      } else{
         return [item];
       }
     },
-    _search:function(term){
-      if (term == ""){
-        this._suggestions = [];
-        return;
+    _localCandidatesSearch: function(term) {
+      var patt =  new RegExp(term.toLowerCase()),
+          matched = [],
+          i,
+          len,
+          toTest,
+          j,
+          jlen,
+          item;
+
+      for (i = 0, len=this.localCandidates.length; i < len; i ++){
+        if (matched.length === parseInt(this.maxSuggestions)){
+          break;
+        }
+        toTest = this._getTestCandidate(this.localCandidates[i]);
+        for (j = 0,jlen=toTest.length; j < jlen; j ++){
+          item = toTest[j];
+
+          if (patt.test(item.toLowerCase())){
+            matched.push(this.localCandidates[i]);
+            break;
+          }
+        }
       }
-      var patt =  new RegExp(term.toLowerCase());
+      return matched;
+    },
+    _prefetchedCandidatesSearch: function(term) {
+      var patt =  new RegExp(term.toLowerCase()),
+          matched = [],
+          i,
+          len,
+          toTest,
+          j,
+          jlen,
+          item;
+
+      for (i = 0, len=this._prefetchedCandidates.length; i < len; i ++){
+        if (matched.length === parseInt(this.maxSuggestions)){
+          break;
+        }
+        toTest = this._getTestCandidate(this._prefetchedCandidates[i]);
+        for (j = 0,jlen=toTest.length; j <jlen; j ++){
+          item = toTest[j];
+          if (patt.test(item.toLowerCase())){
+            matched.push(this._prefetchedCandidates[i]);
+            break;
+          }
+        }
+      }
+      return matched;
+    },
+    _remoteUrlSearch: function(term) {
       var matched = [];
 
-      if (this.localCandidates){
-        for (var i = 0; i < this.localCandidates.length; i ++){
-          if (matched.length === this.maxSuggestions){
-            break;
-          }
-          var toTest = this._getTestCandidate(this.localCandidates[i]);
-          for (var j = 0; j < toTest.length; j ++){
-            var item = toTest[j];
-            if (patt.test(item.toLowerCase()) == true){
-              matched.push(this.localCandidates[i]);
-              break;
-            }
-          }
+      var pt_element = this;
+
+      var ironAjaxEl = document.createElement('iron-ajax');
+      var ptinput = pt_element;
+      var url = pt_element.remoteUrl.replace("%QUERY", term);
+      ironAjaxEl.handleAs = "json";
+      ironAjaxEl.url = url;
+
+      ironAjaxEl.addEventListener('response', function(evt) {
+        if(evt.detail.response) {
+          var resp = evt.detail.response,
+              remoteMatched = JSON.parse(resp),
+              cuttedMatched = remoteMatched.slice(0,parseInt(ptinput.maxSuggestions)),
+              matched = matched.concat(cuttedMatched);
+
+        ptinput._suggestions = matched;
+        pt_element.set('remoteUrlSearching',false);
+        pt_element.fire('px-typeahead-remote-searching-end',pt_element);
+        } else {
+          return;
         }
+
+      });
+
+      this.debounce('remoteUrlSearch', function(){
+        ironAjaxEl.generateRequest();
+        pt_element.fire('px-typeahead-remote-searching-start',pt_element);
+        pt_element.set('remoteUrlSearching', true);
+      },this.remoteUrlWaitMs);
+      return matched;
+    },
+    _search:function(term){
+
+      var matched = [];
+
+      if (!term){
+        this.set('_suggestions',[]);
+        return;
       }
-      if (this._prefetchedCandidates){
-        for (var i = 0; i < this._prefetchedCandidates.length; i ++){
-          if (matched.length === this.maxSuggestions){
-            break;
-          }
-          var toTest = this._getTestCandidate(this._prefetchedCandidates[i]);
-          for (var j = 0; j < toTest.length; j ++){
-            var item = toTest[j];
-            if (patt.test(item.toLowerCase()) == true){
-              matched.push(this._prefetchedCandidates[i]);
-              break;
-            }
-          }
-        }
+      if (this.localCandidates && this.localCandidates.length){
+        matched = this._localCandidatesSearch(term);
       }
-      
+
+      if (this._prefetchedCandidates && this._prefetchedCandidates.length){
+        matched = this._prefetchedCandidatesSearch(term);
+      }
       if (this.remoteUrl){
-        var pt_element = this;
-        pt_element.fire('pt-remote-searching-start',pt_element);
-        pt_element.remoteUrlSearching = true;
-        this.debounce('remoteUrlSearch', function(){
-          var url = pt_element.remoteUrl.replace("%QUERY", term);
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.open('GET', url, true);
-          xmlhttp.setRequestHeader("Content-type", "application/json");
-          var ptinput = pt_element;
-          xmlhttp.onreadystatechange = function() {
-              if (xmlhttp.readyState === 4) {
-                if (xmlhttp.status == 200){
-                    var resp = xmlhttp.response;
-                    var remoteMatched = JSON.parse(resp);
-                    var cuttedMatched = remoteMatched.slice(0,ptinput.maxSuggestions);
-                    matched = matched.concat(cuttedMatched);
-                    // ptinput._suggestions = ptinput._suggestions.concat(cuttedMatched);
-                    ptinput._suggestions = matched;
-                }
-                pt_element.remoteUrlSearching = false;
-                pt_element.fire('pt-remote-searching-end',pt_element);
-              }
-
-
-          }
-          xmlhttp.send();
-        }, this.remoteUrlWaitMs);
+        matched = this._remoteUrlSearch(term);
       }
       else{
-        this._suggestions = matched;
+        this.set('_suggestions',matched);
+        //make sure the results are the same size as the input box.
+        this.async(function() {
+          this._setSearchResultSize();
+        },5);
       }
     }
-
+    /**
+     * this event is fired when the searching has begun on a remote data source
+     * @event px-typeahead-remote-searching-start
+     */
+     /**
+      * this event is fired when the searching has ended on a remote data source
+      * @event px-typeahead-remote-searching-end
+      */
   });
 
 </script>
