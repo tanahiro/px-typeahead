@@ -8,7 +8,7 @@
     "repository" :
     {
         "type": "git",
-        "url": "https://github.com/predixDev/px-typeahead.git"
+        "url": "git@github.build.ge.com:Aviation-OO/px-typeahead.git"
     },
     "homepage": "http://predix.io/",
     "devDependencies": {

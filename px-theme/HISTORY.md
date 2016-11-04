@@ -1,3 +1,11 @@
+v1.1.4
+=================
+* set base font size to inuit default (15px) for rem calculations
+
+v1.1.3
+=================
+* Updated dependencies
+
 v0.8.0
 =================
 * migrate to polymer 1.5.0
