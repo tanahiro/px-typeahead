@@ -1,8 +1,10 @@
 #Px-Typeahead
 
+A typeahead functionality using polymer, vanilla javascript , px-inuit-styling , e2e tests written using web-component-tester, mocha and chai 
+
 ## Overview
 
-Px-Typeahead is a Predix UI component
+px-typeahead is a Predix UI component . It offers search capability with user input among all possible suggestions as part of the input array and lists all the suggestions which has the input and show all the possibilities upto the max-suggestions listed as part of declaration. 
 
 ## Usage
 
@@ -19,19 +21,22 @@ Node, npm and bower are necessary to install the component and dependencies. web
 First, install the component via bower on the command line.
 
 ```
-bower install Px-Typeahead --save
+bower install px-typeahead --save
 ```
 
 Second, import the component to your application with the following tag in your head.
 
 ```
-<link rel="import" href="/bower_components/Px-Typeahead/Px-Typeahead.html"/>
+<link rel="import" href="/bower_components/px-typeahead/px-typeahead.html"/>
 ```
 
 Finally, use the component in your application:
 
 ```
-Insert Your demo code here.
+<px-typeahead max-suggestions="10" local-candidates="{{your-array-of-input-strings}}" placeholder="your-placeholder">
+</px-typeahead>
+
+For more - read documentation section below
 ```
 
 <br />
@@ -39,7 +44,7 @@ Insert Your demo code here.
 
 ## documentation
 
-Read the full API and view the demo [here](https://predixdev.github.io/Px-Typeahead).
+Read the full API and view the demo [here](https://predixdev.github.io/px-typeahead).
 
 The documentation in this repository is supplemental to the official Predix documentation, which is continuously updated and maintained by the Predix documentation team. Go to [http://predix.io](http://predix.io)  to see the official Predix documentation.
 
@@ -79,4 +84,4 @@ $ grunt devmode
 
 ## Known Issues
 
-Please use [Github Issues](https://github.com/PredixDev/Px-Typeahead/issues) to submit any bugs you might find.
+Please use [Github Issues]( https://github.com/predixdev/px-typeahead/issues) to submit any bugs you might find.

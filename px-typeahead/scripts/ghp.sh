@@ -36,6 +36,11 @@ SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 cp bower.json ../tmp_bower/bower.json
 #and checkout gh-pages - create it if it doesn't exist.
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+
+#remove the old .bowerrc, and replace it with one that tells bower to install everything in THIS folder, and not bower_components
+rm .bowerrc
+echo "{ \"directory\": \".\" }" > .bowerrc
+
 #copy the bower.json file from our temp directory into the current one, overriding it, and passing a yes in there's a prompt
 yes | cp ../tmp_bower/bower.json bower.json
 
