@@ -58,8 +58,6 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
   -moz-user-focus: normal;
 }
 
-
-
 .container {
 	ul {
     background-color: $gray1;
@@ -77,6 +75,9 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
   			:last-child {
     			border-radius: 0 0 4px 4px;
   			}
-  		}
+			span.bold {
+			  font-weight: 600;
+			}
+  	}
 	}
 }
