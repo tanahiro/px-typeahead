@@ -319,7 +319,7 @@
       this.async(function() {
         this.set('_suggestions',[]);
       }, 100);
-      this.fire('px-typeahead-item-confirmed',selectedItem);
+      this.fire('px-typeahead-item-selected',selectedItem);
       Polymer.dom(this.root).querySelector('input').focus();
     },
     _backspacePress: function(e) {

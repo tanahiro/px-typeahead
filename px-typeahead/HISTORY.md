@@ -1,3 +1,7 @@
+v0.1.2
+==================
+* made the event fired the same for mouse click as enter.
+
 v0.1.1
 ==================
 * fixed bolding issue.

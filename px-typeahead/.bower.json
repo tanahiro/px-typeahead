@@ -1,6 +1,6 @@
 {
   "name": "px-typeahead",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": [
     "px-typeahead.html"
   ],
@@ -42,11 +42,11 @@
     "px-dropdown": "^0.12.1"
   },
   "homepage": "https://github.com/predixdev/px-typeahead",
-  "_release": "0.1.1",
+  "_release": "0.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.1.1",
-    "commit": "4831aacb29e4a9f5db20092ac765e3ecd07eea05"
+    "tag": "v0.1.2",
+    "commit": "5c7c07f5a009af9f88eae7dff073df5a0ab5ba75"
   },
   "_source": "https://github.com/predixdev/px-typeahead.git",
   "_target": "^0.1.0",
