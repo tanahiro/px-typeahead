@@ -1,6 +1,6 @@
 {
   "name": "px-typeahead",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": [
     "px-typeahead.html"
   ],
@@ -40,5 +40,13 @@
     "px-actionable-text-icons-design": "^0.1.0",
     "px-code-design": "~0.2.11",
     "px-dropdown": "^0.12.1"
+  },
+  "resolutions": {
+    "px-theme": "^1.1.2",
+    "px-typeahead": "^1.0.0",
+    "px-functions-design": "~1.0.0",
+    "px-iconography-design": "^0.3.1",
+    "px-defaults-design": "^0.3.0",
+    "px-typography-design": "^1.1.3"
   }
 }
