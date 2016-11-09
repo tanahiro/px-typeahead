@@ -37,7 +37,7 @@
     </template>
 
     <div class$="[[_calculateParentDivClass(inputFocused)]]" tabindex="0" id="mainContainer">
-      <div style="flex:0 1 99%;"><input id="search" class="search u-pl--"
+      <div style="flex:0 1 99%;"><input id="search" class="search u-pl--" disabled$="[[disabled]]"
       on-keyup="_keyup" on-keydown="_keydown" placeholder="{{placeholder}}" value="{{inputValue::input}}" on-focus="_onfocus" on-blur="_onblur"></input>
       </div>
       <div style="flex:0 0 1%;"><iron-icon icon="fa:fa-search"></i></div>
@@ -73,6 +73,14 @@
         type: Boolean,
         value: false,
         notify: true
+      },
+      /**
+       * Add this to disable the input, default false.
+       * @type {Object}
+       */
+      disabled: {
+        type: Boolean,
+        value: false
       },
       /**
        * The placeholder for the input element.
