@@ -94,5 +94,14 @@ function runCustomTests() {
 
           });
       });
+
+      test('Ensure disabled feature works', function(done){
+        var px_typeahead = document.querySelector('#px_typeahead_2');
+
+        var input = Polymer.dom(px_typeahead.root).querySelector('input');
+
+        assert.isTrue(input.disabled);
+        done();
+      });
   });
 };
