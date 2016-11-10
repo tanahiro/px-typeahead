@@ -43,7 +43,6 @@
   },
   "resolutions": {
     "px-theme": "^1.1.2",
-    "px-typeahead": "^1.0.0",
     "px-functions-design": "~1.0.0",
     "px-iconography-design": "^0.3.1",
     "px-defaults-design": "^0.3.0",
