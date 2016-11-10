@@ -1,3 +1,6 @@
+v0.2.1
+=================
+* small readme change
 v0.2.0
 ==================
 * added siabled property
