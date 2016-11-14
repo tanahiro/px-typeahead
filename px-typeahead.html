@@ -16,6 +16,19 @@
     <px-typeahead max-suggestions="10" local-candidates="{{your-array-of-input-strings}}" placeholder="your-placeholder">
     </px-typeahead>
 
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--px-typeahead-background-color` | Background color for the typeahead input | `$gray2`
+`--px-typeahead-background-color--selected` | Background color for selected typeahead result | `$select-blue-default`
+`--px-typeahead-border-color` | Border color for the typeahead input | `$gray5`
+`--px-typeahead-border-color--focus` | Border color for the typeahead input when its focused | `$select-blue-default`
+`--px-typeahead-box-shadow-color` | Box shadow color for the typeahead input | `$gray3`
+`--px-typeahead-box-shadow-color--focus` | Box shadow color for the typeahead input when its focused | `$gray4`
+`--px-typeahead-text-color` | Fill color for text in the input field and unselected results | `$black`
+`--px-typeahead-text-color--selected` | Fill color for text of a selected result | `$white`
 
 @element px-typeahead
 @blurb showing px-typeahead is a Predix UI component that show possible completion options for the search term entered
