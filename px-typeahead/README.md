@@ -4,7 +4,7 @@ A typeahead functionality using polymer, vanilla javascript , px-inuit-styling ,
 
 ## Overview
 
-px-typeahead is a Predix UI component . It offers search capability with user input among all possible suggestions as part of the input array and lists all the suggestions which has the input and show all the possibilities upto the max-suggestions listed as part of declaration.
+px-typeahead is a Predix UI component. It offers search capability with user input among all possible suggestions as part of the input array and lists all the suggestions which has the input and show all the possibilities upto the max-suggestions listed as part of declaration.
 
 ## Usage
 

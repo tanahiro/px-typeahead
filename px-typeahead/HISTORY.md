@@ -1,3 +1,12 @@
+v0.2.2
+=================
+* added style variables for theming
+* aligned design with px-forms-design
+
+v0.2.1
+=================
+* small readme change
+
 v0.2.0
 ==================
 * added siabled property
