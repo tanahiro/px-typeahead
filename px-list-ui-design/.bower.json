@@ -1,6 +1,6 @@
 {
   "name": "px-list-ui-design",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -29,11 +29,11 @@
     "px-sass-doc": "^0.2.10",
     "px-starter-kit-design": "~0.6.0"
   },
-  "_release": "0.3.18",
+  "_release": "0.3.19",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.18",
-    "commit": "68333e6c188e58e4f52a939fb77ddeefa72d62a5"
+    "tag": "v0.3.19",
+    "commit": "3afe55b81788a95244dcc609dee1a979598f30af"
   },
   "_source": "https://github.com/predixDev/px-list-ui-design.git",
   "_target": "^0.3.11",

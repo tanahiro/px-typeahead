@@ -1,3 +1,11 @@
+v0.1.12
+==================
+* changed var names to be consistent with BEM
+
+v0.1.11
+==================
+* bower updating px-demo-snippet
+
 v0.1.10
 ==================
 * added style variables for theming

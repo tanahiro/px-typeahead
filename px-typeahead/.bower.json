@@ -1,6 +1,6 @@
 {
   "name": "px-typeahead",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": [
     "px-typeahead.html"
   ],
@@ -33,7 +33,7 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#~1.2.3",
     "px-tabs": "~0.5.2",
     "px-api-viewer": "^0.1.0",
-    "px-demo-snippet": "^0.6.2",
+    "px-demo-snippet": "^0.6.9",
     "px-list-inline-design": "^0.2.11",
     "px-toggle-design": "^0.2.12",
     "px-headings-design": "^0.2.14",
@@ -42,11 +42,11 @@
     "px-dropdown": "^0.12.1"
   },
   "homepage": "https://github.com/predixdev/px-typeahead",
-  "_release": "0.2.2",
+  "_release": "0.2.3",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.2",
-    "commit": "4b0dd37cb7f92b207ff18ce2a3a6ed30d4d0a988"
+    "tag": "v0.2.3",
+    "commit": "0964ef96c68ad3f6a94fd650aa77fb7a7adf7b5d"
   },
   "_source": "https://github.com/predixdev/px-typeahead.git",
   "_target": "^0.2.0",
