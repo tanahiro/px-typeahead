@@ -1,13 +1,13 @@
 {
     "name": "px-typeahead",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "main": [
         "px-typeahead.html"
     ],
     "ignore": [
         ".*",
         "npm-debug.log",
-        "Gruntfile.js",
+        "gulpfile.js",
         "sass",
         "bower_components",
         "node_modules",
