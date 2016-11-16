@@ -1,13 +1,13 @@
 {
   "name": "px-typeahead",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": [
     "px-typeahead.html"
   ],
   "ignore": [
     ".*",
     "npm-debug.log",
-    "Gruntfile.js",
+    "gulpfile.js",
     "sass",
     "bower_components",
     "node_modules",
@@ -42,11 +42,11 @@
     "px-dropdown": "^0.12.1"
   },
   "homepage": "https://github.com/predixdev/px-typeahead",
-  "_release": "0.2.3",
+  "_release": "0.2.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.3",
-    "commit": "0964ef96c68ad3f6a94fd650aa77fb7a7adf7b5d"
+    "tag": "v0.2.4",
+    "commit": "37852cdaf448ec71242d59258354fa398c88eedd"
   },
   "_source": "https://github.com/predixdev/px-typeahead.git",
   "_target": "^0.2.0",
