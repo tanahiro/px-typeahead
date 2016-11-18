@@ -1,6 +1,6 @@
 {
   "name": "px-typeahead",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": [
     "px-typeahead.html"
   ],
@@ -39,14 +39,14 @@
     "px-headings-design": "^0.2.14",
     "px-actionable-text-icons-design": "^0.1.0",
     "px-code-design": "~0.2.11",
-    "px-dropdown": "^0.12.1"
+    "px-dropdown": "~2.0.0"
   },
   "homepage": "https://github.com/predixdev/px-typeahead",
-  "_release": "0.2.4",
+  "_release": "0.2.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.4",
-    "commit": "37852cdaf448ec71242d59258354fa398c88eedd"
+    "tag": "v0.2.5",
+    "commit": "7d539757b2ac219d04ec0b9b2c6aa904a300691b"
   },
   "_source": "https://github.com/predixdev/px-typeahead.git",
   "_target": "^0.2.0",

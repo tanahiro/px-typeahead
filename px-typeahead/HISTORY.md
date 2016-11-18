@@ -1,3 +1,7 @@
+v0.2.5
+==================
+* update dependencies for dropdown
+
 
 v0.2.4
 ==================
