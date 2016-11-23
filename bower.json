@@ -1,6 +1,6 @@
 {
     "name": "px-typeahead",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "main": [
         "px-typeahead.html"
     ],
@@ -25,7 +25,7 @@
     "devDependencies": {
         "px-list-bare-design": "^0.2.13",
         "px-starter-kit-design": "^0.6.0",
-        "px-slider": "^0.6.0",
+        "px-slider": "^0.7.6",
         "px-spacing-design": "^0.3.8",
         "px-buttons-design": "^0.4.26",
         "px-forms-design": "^0.3.17",
