@@ -1,6 +1,6 @@
 {
     "name": "px-typeahead",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "main": [
         "px-typeahead.html"
     ],
@@ -15,7 +15,7 @@
     ],
     "dependencies": {
         "polymer": "^1.7.0",
-        "px-theme": "~1.1.2",
+        "px-theme": "^2.0.1",
         "px-spacing-design": "^0.3.8",
         "px-list-ui-design": "^0.3.11",
         "iron-ajax": "^1.4.3",
