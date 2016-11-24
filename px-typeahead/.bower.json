@@ -1,6 +1,6 @@
 {
   "name": "px-typeahead",
-  "version": "0.2.5",
+  "version": "0.2.8",
   "main": [
     "px-typeahead.html"
   ],
@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "polymer": "^1.7.0",
-    "px-theme": "~1.1.2",
+    "px-theme": "^2.0.1",
     "px-spacing-design": "^0.3.8",
     "px-list-ui-design": "^0.3.11",
     "iron-ajax": "^1.4.3",
@@ -24,29 +24,29 @@
   },
   "devDependencies": {
     "px-list-bare-design": "^0.2.13",
-    "px-starter-kit-design": "~0.6.0",
-    "px-slider": "~0.6.0",
-    "px-spacing-design": "~0.3.8",
-    "px-buttons-design": "~0.4.26",
-    "px-forms-design": "~0.3.17",
-    "px-button-group-design": "~0.3.12",
+    "px-starter-kit-design": "^0.6.0",
+    "px-slider": "^0.7.6",
+    "px-spacing-design": "^0.3.8",
+    "px-buttons-design": "^0.4.26",
+    "px-forms-design": "^0.3.17",
+    "px-button-group-design": "^0.3.12",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#~1.2.3",
-    "px-tabs": "~0.5.2",
+    "px-tabs": "^0.5.2",
     "px-api-viewer": "^0.1.0",
     "px-demo-snippet": "^0.6.9",
     "px-list-inline-design": "^0.2.11",
     "px-toggle-design": "^0.2.12",
     "px-headings-design": "^0.2.14",
     "px-actionable-text-icons-design": "^0.1.0",
-    "px-code-design": "~0.2.11",
-    "px-dropdown": "~2.0.0"
+    "px-code-design": "^0.2.11",
+    "px-dropdown": "^2.0.0"
   },
   "homepage": "https://github.com/predixdev/px-typeahead",
-  "_release": "0.2.5",
+  "_release": "0.2.8",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.5",
-    "commit": "7d539757b2ac219d04ec0b9b2c6aa904a300691b"
+    "tag": "v0.2.8",
+    "commit": "a98e4aca1bee67c982c431cf65bca9ec10dfdeca"
   },
   "_source": "https://github.com/predixdev/px-typeahead.git",
   "_target": "^0.2.0",
