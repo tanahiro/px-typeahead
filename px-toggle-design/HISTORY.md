@@ -1,3 +1,7 @@
+v0.2.22
+==================
+* shortened description to 140 char limit
+
 v0.2.21
 ==================
 * added style variables for theming

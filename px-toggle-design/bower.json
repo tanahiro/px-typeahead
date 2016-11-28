@@ -1,10 +1,10 @@
 {
     "name": "px-toggle-design",
-    "version": "0.2.21",
+    "version": "0.2.22",
     "authors": [
         "General Electric"
     ],
-    "description": "Toggle is a simple on/off switch. It's created with CSS applied to a checkbox and label. Use it to create simple UI elements that enable and disable things.",
+    "description": "Toggle is a simple on/off switch.",
     "main": "_objects.toggle.scss",
     "keywords": [
         "px",
