@@ -43,10 +43,13 @@ common/abstract rules go in px-typeahead-sketch.scss, not in this file.
   }
 }
 
+#icon {
+	color: var(--px-typeahead-text-color, $black);
+}
 
 .search {
   background-color: var(--px-typeahead-background-color, $gray2);
-  color: var(--px-typeahead-text-color, $black);
+	color: var(--px-typeahead-text-color, $black);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
