@@ -1,3 +1,7 @@
+v0.2.10
+==================
+* turned off autocomplete for input field
+
 v0.2.9
 ==================
 * updated styles for dark theme

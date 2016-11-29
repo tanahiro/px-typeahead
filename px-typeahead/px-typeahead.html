@@ -51,7 +51,7 @@ Custom property | Description | Default
 
     <div class$="[[_calculateParentDivClass(inputFocused)]]" tabindex="0" id="mainContainer">
       <div style="flex:0 1 99%;"><input id="search" class="search u-pl--" disabled$="[[disabled]]"
-      on-keyup="_keyup" on-keydown="_keydown" placeholder="{{placeholder}}" value="{{inputValue::input}}" on-focus="_onfocus" on-blur="_onblur"></input>
+      on-keyup="_keyup" on-keydown="_keydown" placeholder="{{placeholder}}" value="{{inputValue::input}}" on-focus="_onfocus" on-blur="_onblur" autocomplete="off"></input>
       </div>
       <div style="flex:0 0 1%;" id="icon"><iron-icon icon="fa:fa-search"></i></div>
     </div>

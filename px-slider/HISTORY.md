@@ -1,3 +1,7 @@
+v0.7.7
+==================
+* updated style for css variable   --px-handle-background-color--hover
+
 v0.7.6
 ==================
 * changing all devDeps to ^
