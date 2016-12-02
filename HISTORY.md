@@ -1,3 +1,7 @@
+v0.2.11
+==================
+* fixed a bug that didn't select a single result.
+
 v0.2.10
 ==================
 * turned off autocomplete for input field

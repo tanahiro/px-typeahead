@@ -53,14 +53,15 @@ Custom property | Description | Default
       <div style="flex:0 1 99%;"><input id="search" class="search u-pl--" disabled$="[[disabled]]"
       on-keyup="_keyup" on-keydown="_keydown" placeholder="{{placeholder}}" value="{{inputValue::input}}" on-focus="_onfocus" on-blur="_onblur" autocomplete="off"></input>
       </div>
-      <div style="flex:0 0 1%;" id="icon"><iron-icon icon="fa:fa-search"></i></div>
+      <div style="flex:0 0 1%;" id="icong339
+      "><iron-icon icon="fa:fa-search"></i></div>
     </div>
     <template is="dom-if" if="{{_isSuggestionsEmtpy(_suggestions)}}">
       <div class="container" >
         <ul class="layout__item" id="searchResults">
           <template is="dom-repeat" items="[[_boldResults(_suggestions.*, inputValue)]]">
              <li tabindex="-1" on-tap="_select" on-mouseover="_onhover"
-             on-keyup="_keyup" class="u-p--">
+             on-keyup="_keyup" class="u-p-- result">
              [[item.prefix]]<span class="bold">[[item.highlight]]</span>[[item.suffix]]
             </li>
           </template>
@@ -321,30 +322,34 @@ Custom property | Description | Default
           selectedItem.classList.add('item-selected');
         }
       }
-    //  this.set('inputValue',selectedItem.textContent.trim());
     },
     _enterPress: function(e) {
       var alreadySelected,
           selectedItem,
           suggestionsMenu,
-          children;
+          children,
+          results;
 
       alreadySelected = Polymer.dom(this.root).querySelector('.item-selected');
-
       if (alreadySelected){
         selectedItem = alreadySelected;
         selectedItem.classList.remove('item-selected');
       }
 
-      this.set('inputValue',selectedItem.textContent.trim());
-      this.async(function() {
-        this.set('_suggestions',[]);
-      }, 100);
-      this.fire('px-typeahead-item-selected',selectedItem);
-      Polymer.dom(this.root).querySelector('input').focus();
+      //if we only have 1 option, select it, otherwise, do nothing.
+      results = Polymer.dom(this.root).querySelectorAll('.result');
+      if (results.length ===1) {
+        selectedItem = results[0];
+        this.set('inputValue',selectedItem.textContent.trim());
+        this.async(function() {
+          this.set('_suggestions',[]);
+        }, 100);
+        this.fire('px-typeahead-item-selected',selectedItem);
+        Polymer.dom(this.root).querySelector('input').focus();
+      }
+
     },
     _backspacePress: function(e) {
-
       var val = e.target.value;
       this._search(val);
     },
@@ -372,6 +377,13 @@ Custom property | Description | Default
         var input = this.$.search;
         //this._search(input.value.trim());
         input.focus();
+        this._checkIfSingleResult(e);
+      }
+    },
+    _checkIfSingleResult: function(e) {
+      var results = Polymer.dom(this.root).querySelectorAll('.result');
+      if (this._suggestions.length === 1) {
+        this.toggleClass('item-selected', true, results[0]);
       }
     },
     _localCandidatesSearch: function(term) {
